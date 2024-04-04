@@ -5,8 +5,8 @@ public class WorldFrame extends JFrame implements Runnable {
 
     public WorldFrame(String display){
         super(display);
-        int frameWidth = 800;
-        int frameHeight = 800;
+        int frameWidth = 1050;
+        int frameHeight = 1025;
         p = new WorldPanel();
         this.add(p);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

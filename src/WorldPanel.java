@@ -21,16 +21,16 @@ public class WorldPanel extends JPanel implements MouseListener {
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        int x = 10;
-        int y = 10;
+        int x = 0;
+        int y = 0;
         for (int row = 0; row < cave.getLevel().length; row++) {
             for (int col = 0; col < cave.getLevel()[0].length; col++) {
                 Tile t = cave.getLevel()[row][col];
                 g.drawImage(t.getImage(), x, y, null);
-                x = x + 23;
+                x = x + 45;
             }
-            x = 10;
-            y = y + 24;
+            x = 0;
+            y = y + 47;
         }
     }
 
