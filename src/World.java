@@ -47,7 +47,7 @@ public class World {
     private void generateWorld() {
         int[][] mazeData = getWorld("levels/cave_file");
 
-        level = new Tile[30][30];
+        level = new Tile[mazeData.length][mazeData[0].length];
 
         for (int r = 0; r < level.length; r++) {
             for (int c = 0; c < level[0].length; c++) {

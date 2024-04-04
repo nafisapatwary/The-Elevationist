@@ -11,14 +11,27 @@ public class WorldPanel extends JPanel implements MouseListener {
 
     private Rectangle button;
 
+    private World cave;
+
     public WorldPanel(){
         button = new Rectangle(75, 200, 160, 26);
         this.addMouseListener(this);
+        cave = new World();
     }
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawRect((int) button.getX(), (int) button.getY(), (int) button.getWidth(), (int) button.getHeight());
+        int x = 10;
+        int y = 10;
+        for (int row = 0; row < cave.getLevel().length; row++) {
+            for (int col = 0; col < cave.getLevel()[0].length; col++) {
+                Tile t = cave.getLevel()[row][col];
+                g.drawImage(t.getImage(), x, y, null);
+                x = x + 23;
+            }
+            x = 10;
+            y = y + 24;
+        }
     }
 
     public void mousePressed(MouseEvent e){
