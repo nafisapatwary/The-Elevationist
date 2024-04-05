@@ -35,7 +35,9 @@ public class WorldPanel extends JPanel implements MouseListener {
             x = 0;
             y = y + 47;
         }
+
         g.drawImage(p.getImage(), 100, 100, null);
+
     }
 
     public void mousePressed(MouseEvent e){
