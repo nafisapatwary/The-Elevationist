@@ -1,3 +1,4 @@
+import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
@@ -7,17 +8,25 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.awt.Font;
+import java.awt.event.KeyEvent;
 
-public class WorldPanel extends JPanel implements MouseListener {
+
+public class WorldPanel extends JPanel implements MouseListener, KeyListener {
 
     private Rectangle button;
     private Player p;
     private Rectangle pRec;
     private World cave;
+    private boolean moveUp = false;
+
+    private int playerPosX = 100;
+    private int playerPosY = 100;
 
     public WorldPanel(){
         button = new Rectangle(75, 200, 160, 26);
+        this.setFocusable(true);
         this.addMouseListener(this);
+        this.addKeyListener(this);
         cave = new World();
         p = new Player();
     }
@@ -35,12 +44,13 @@ public class WorldPanel extends JPanel implements MouseListener {
             x = 0;
             y = y + 47;
         }
-        g.drawImage(p.getImage(), 100, 100, null);
-
+        if (moveUp) playerPosY -= 1;
+        g.drawImage(p.getImage(), playerPosX, playerPosY, null);
     }
 
     public void mousePressed(MouseEvent e){
         Point clicked = e.getPoint();
+        System.out.println("Mouse Clicked");
     }
 
     public void mouseReleased(MouseEvent e) { }
@@ -48,5 +58,23 @@ public class WorldPanel extends JPanel implements MouseListener {
     public void mouseExited(MouseEvent e) { }
     public void mouseClicked(MouseEvent e) { }
 
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_W){
+            moveUp = true;
+            System.out.println("pressed");
+        }
+    }
+
+
+    public void keyReleased(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_W){
+            moveUp = false;
+            System.out.println("Released");
+        }
+    }
+
+    public void keyTyped(KeyEvent e) {
+        char key = e.getKeyChar();
+    }
 
 }
