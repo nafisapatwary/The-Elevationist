@@ -11,12 +11,15 @@ public class WorldPanel extends JPanel implements MouseListener {
 
     private Rectangle button;
 
+    private Player p;
+    private Rectangle pRec;
     private World cave;
 
     public WorldPanel(){
         button = new Rectangle(75, 200, 160, 26);
         this.addMouseListener(this);
         cave = new World();
+        p = new Player();
     }
 
     protected void paintComponent(Graphics g) {
@@ -32,6 +35,7 @@ public class WorldPanel extends JPanel implements MouseListener {
             x = 0;
             y = y + 47;
         }
+        g.drawImage(p.getImage(), 100, 100, null);
     }
 
     public void mousePressed(MouseEvent e){
