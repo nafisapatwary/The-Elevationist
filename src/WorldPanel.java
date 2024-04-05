@@ -35,8 +35,7 @@ public class WorldPanel extends JPanel implements MouseListener {
             x = 0;
             y = y + 47;
         }
-        BufferedImage xy = p.scale(p.getImage(), 45, 47);
-        g.drawImage(xy, 100, 100, null);
+        g.drawImage(p.getImage(), 100, 100, null);
 
     }
 
