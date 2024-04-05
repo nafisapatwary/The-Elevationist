@@ -25,10 +25,10 @@ public class Player {
         }
     }
 
-    public static BufferedImage scale(BufferedImage src, int w, int h)
+    public BufferedImage scale(BufferedImage src, int w, int h)
     {
         BufferedImage img =
-                new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+                new BufferedImage(w, h, BufferedImage.TYPE_4BYTE_ABGR_PRE);
         int x, y;
         int ww = src.getWidth();
         int hh = src.getHeight();

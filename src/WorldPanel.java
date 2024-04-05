@@ -4,13 +4,13 @@ import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.awt.Font;
 
 public class WorldPanel extends JPanel implements MouseListener {
 
     private Rectangle button;
-
     private Player p;
     private Rectangle pRec;
     private World cave;
@@ -35,8 +35,8 @@ public class WorldPanel extends JPanel implements MouseListener {
             x = 0;
             y = y + 47;
         }
-
-        g.drawImage(p.getImage(), 100, 100, null);
+        BufferedImage xy = p.scale(p.getImage(), 45, 47);
+        g.drawImage(xy, 100, 100, null);
 
     }
 
