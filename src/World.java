@@ -3,7 +3,8 @@ import java.io.File;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 
-public class World {
+public class
+World {
     private Tile [][] level;
     private Player player;
 

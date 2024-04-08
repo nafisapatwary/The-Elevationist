@@ -18,6 +18,9 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
     private Rectangle pRec;
     private World cave;
     private boolean moveUp = false;
+    private boolean moveLeft = false;
+    private boolean moveRight = false;
+    private boolean moveDown = false;
 
     private int playerPosX = 100;
     private int playerPosY = 100;
@@ -45,6 +48,9 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
             y = y + 47;
         }
         if (moveUp) playerPosY -= 1;
+        if (moveLeft) playerPosX -= 1;
+        if (moveRight) playerPosX += 1;
+        if (moveDown) playerPosY += 1;
         g.drawImage(p.getImage(), playerPosX, playerPosY, null);
     }
 
@@ -61,7 +67,15 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_W){
             moveUp = true;
-            System.out.println("pressed");
+        }
+        if (e.getKeyCode() == KeyEvent.VK_A) {
+            moveLeft = true;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_D) {
+            moveRight = true;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_S) {
+            moveDown = true;
         }
     }
 
@@ -69,7 +83,16 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_W){
             moveUp = false;
-            System.out.println("Released");
+
+        }
+        if (e.getKeyCode() == KeyEvent.VK_A) {
+            moveLeft = false;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_D) {
+            moveRight = false;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_S) {
+            moveDown = false;
         }
     }
 
