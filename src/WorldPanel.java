@@ -15,7 +15,6 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
 
     private Rectangle button;
     private Player p;
-    private Rectangle pRec;
     private World cave;
     private boolean moveUp = false;
     private boolean moveLeft = false;
@@ -49,21 +48,30 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
         Rectangle pRect = p.getPlayerRect();
         Rectangle tRect = t.getTreasureRect();
 
-        if (moveUp) p.setY(p.getY() - 1);
-        if (moveLeft) p.setX(p.getX() - 1);
-        if (moveRight) p.setX(p.getX() + 1);
-        if (moveDown) p.setY(p.getY() + 1);
+        if (moveUp) {
+            p.setY(p.getY() - 1);
+        }
+        if (moveLeft) {
+            p.setX(p.getX() - 1);
+        }
+        if (moveRight) {
+            p.setX(p.getX() + 1);
+        }
+        if (moveDown) {
+            p.setY(p.getY() + 1);
+        }
+        checkCollision(pRect, tRect);
         p.updateRectPos(p.getX(), p.getY());
-//        System.out.println("Player Rect Pos: " + pRect.getLocation());
-//        System.out.printf("Treasure Rect Pos: " + tRect.getLocation());
-        if (pRect.intersects(tRect)) System.out.println("collided");
         g.drawImage(t.getImage(), t.getX(), t.getY(), null);
         g.drawImage(p.getImage(), p.getX(), p.getY(), null);
     }
 
-//    public boolean checkCollision(Rectangle x, Rectangle y){
-//
-//    }
+    public boolean checkCollision(Rectangle x, Rectangle y){
+        if (x.intersects(y)) {
+            return true;
+        }
+        return false;
+    }
 
     public void mousePressed(MouseEvent e){
         Point clicked = e.getPoint();
