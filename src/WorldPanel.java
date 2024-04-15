@@ -46,13 +46,19 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
             x = 0;
             y = y + 47;
         }
-        if (p.getPlayerRect().intersects(t.getTreasureRect())) System.out.println("collided");
+        Rectangle pRect = p.getPlayerRect();
+        Rectangle tRect = t.getTreasureRect();
+
         if (moveUp) p.setY(p.getY() - 1);
         if (moveLeft) p.setX(p.getX() - 1);
         if (moveRight) p.setX(p.getX() + 1);
         if (moveDown) p.setY(p.getY() + 1);
-        g.drawImage(p.getImage(), p.getX(), p.getY(), null);
+        p.updateRectPos(p.getX(), p.getY());
+//        System.out.println("Player Rect Pos: " + pRect.getLocation());
+//        System.out.printf("Treasure Rect Pos: " + tRect.getLocation());
+        if (pRect.intersects(tRect)) System.out.println("collided");
         g.drawImage(t.getImage(), t.getX(), t.getY(), null);
+        g.drawImage(p.getImage(), p.getX(), p.getY(), null);
     }
 
 //    public boolean checkCollision(Rectangle x, Rectangle y){

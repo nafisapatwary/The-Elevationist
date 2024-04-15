@@ -9,10 +9,10 @@ public class Treasure {
     private BufferedImage image;
 
     private final String image_file = "sprites/treasure.png";
-    private int x = 500;
-    private int y = 500;
+    private int x = 100;
+    private int y = 100;
 
-    private Rectangle treasureRect = new Rectangle(40, 37, x, y);
+    private Rectangle treasureRect = new Rectangle(x, y, 40, 37);
 
 
     public Treasure() {

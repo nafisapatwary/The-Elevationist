@@ -13,7 +13,7 @@ public class Player {
     private final String image_file = "sprites/player_file_cat.png";
     private int x = 0;
     private int y = 0;
-    private Rectangle playerRect = new Rectangle(47, 47, x, y);
+    private Rectangle playerRect = new Rectangle(x, y, 47, 47);
 
     public Player() {
         image = loadImage(image_file);
@@ -56,6 +56,6 @@ public class Player {
     }
 
     public void updateRectPos(int newX, int newY) {
-        this.playerRect = new Rectangle(47, 47, newX, newY);
+        playerRect.setLocation(newX, newY);
     }
 }
