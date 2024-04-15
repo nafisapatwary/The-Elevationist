@@ -21,9 +21,7 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
     private boolean moveLeft = false;
     private boolean moveRight = false;
     private boolean moveDown = false;
-
-    private int playerPosX = 100;
-    private int playerPosY = 100;
+    private Treasure t;
 
     public WorldPanel(){
         button = new Rectangle(75, 200, 160, 26);
@@ -32,6 +30,7 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
         this.addKeyListener(this);
         cave = new World();
         p = new Player();
+        t = new Treasure();
     }
 
     protected void paintComponent(Graphics g) {
@@ -47,12 +46,18 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
             x = 0;
             y = y + 47;
         }
-        if (moveUp) playerPosY -= 1;
-        if (moveLeft) playerPosX -= 1;
-        if (moveRight) playerPosX += 1;
-        if (moveDown) playerPosY += 1;
-        g.drawImage(p.getImage(), playerPosX, playerPosY, null);
+        if (p.getPlayerRect().intersects(t.getTreasureRect())) System.out.println("collided");
+        if (moveUp) p.setY(p.getY() - 1);
+        if (moveLeft) p.setX(p.getX() - 1);
+        if (moveRight) p.setX(p.getX() + 1);
+        if (moveDown) p.setY(p.getY() + 1);
+        g.drawImage(p.getImage(), p.getX(), p.getY(), null);
+        g.drawImage(t.getImage(), t.getX(), t.getY(), null);
     }
+
+//    public boolean checkCollision(Rectangle x, Rectangle y){
+//
+//    }
 
     public void mousePressed(MouseEvent e){
         Point clicked = e.getPoint();
@@ -67,6 +72,7 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_W){
             moveUp = true;
+            p.setY(p.getY() - 1);
         }
         if (e.getKeyCode() == KeyEvent.VK_A) {
             moveLeft = true;

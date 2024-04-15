@@ -11,8 +11,8 @@ public class Player {
     private BufferedImage image;
 
     private final String image_file = "sprites/player_file_cat.png";
-    private int x = 502;
-    private int y = 1000;
+    private int x = 0;
+    private int y = 0;
     private Rectangle playerRect = new Rectangle(47, 47, x, y);
 
     public Player() {
@@ -55,7 +55,7 @@ public class Player {
         return playerRect;
     }
 
-    public void updateRectPos() {
-        this.playerRect = new Rectangle(47, 47, x, y);
+    public void updateRectPos(int newX, int newY) {
+        this.playerRect = new Rectangle(47, 47, newX, newY);
     }
 }

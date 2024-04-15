@@ -9,12 +9,13 @@ public class Treasure {
     private BufferedImage image;
 
     private final String image_file = "sprites/treasure.png";
-    private int x;
-    private int y;
+    private int x = 500;
+    private int y = 500;
 
-    private Rectangle rect = getBounds();
+    private Rectangle treasureRect = new Rectangle(40, 37, x, y);
 
-    public Treasure() throws IOException {
+
+    public Treasure() {
         image = loadImage(image_file);
     }
 
@@ -34,13 +35,6 @@ public class Treasure {
         return image;
     }
 
-    public Rectangle getBounds() throws IOException {
-        BufferedImage bimg = ImageIO.read(new File(image_file));
-        int width = bimg.getWidth();
-        int height = bimg.getHeight();
-        return new Rectangle(width, height, x, y);
-    }
-
     public int getX() {
         return x;
     }
@@ -55,5 +49,9 @@ public class Treasure {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public Rectangle getTreasureRect() {
+        return treasureRect;
     }
 }
