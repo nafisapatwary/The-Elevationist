@@ -15,39 +15,40 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
 
     private Rectangle button;
     private Player p;
-    private World cave;
+    private World currentWorld;
     private boolean moveUp = false;
     private boolean moveLeft = false;
     private boolean moveRight = false;
     private boolean moveDown = false;
-    private Treasure t;
+//    private Treasure t;
 
     public WorldPanel(){
         button = new Rectangle(75, 200, 160, 26);
         this.setFocusable(true);
         this.addMouseListener(this);
         this.addKeyListener(this);
-        cave = new World();
+        //change later
+        currentWorld = new World("levels/cave_file");
         p = new Player();
-        t = new Treasure();
+//        t = new Treasure();
     }
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        //Display Tiles
         int x = 0;
         int y = 0;
-        for (int row = 0; row < cave.getLevel().length; row++) {
-            for (int col = 0; col < cave.getLevel()[0].length; col++) {
-                Tile t = cave.getLevel()[row][col];
+        for (int row = 0; row < currentWorld.getLevel().length; row++) {
+            for (int col = 0; col < currentWorld.getLevel()[0].length; col++) {
+                Tile t = currentWorld.getLevel()[row][col];
                 g.drawImage(t.getImage(), x, y, null);
                 x = x + 45;
             }
             x = 0;
             y = y + 47;
         }
-        Rectangle pRect = p.getPlayerRect();
-        Rectangle tRect = t.getTreasureRect();
 
+        Rectangle pRect = p.getPlayerRect();
         if (moveUp) {
             p.setY(p.getY() - 1);
         }
@@ -60,10 +61,13 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
         if (moveDown) {
             p.setY(p.getY() + 1);
         }
-        checkCollision(pRect, tRect);
+//        checkCollision(pRect, tRect);
         p.updateRectPos(p.getX(), p.getY());
-        g.drawImage(t.getImage(), t.getX(), t.getY(), null);
         g.drawImage(p.getImage(), p.getX(), p.getY(), null);
+        for (int i = 0; i < currentWorld.getTreasures().size(); i++){
+            Treasure curr = currentWorld.getTreasures().get(i);
+            g.drawImage(curr.getImage(), curr.getX(), curr.getY(), null);
+        }
     }
 
     public boolean checkCollision(Rectangle x, Rectangle y){

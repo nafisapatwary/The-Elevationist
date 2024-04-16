@@ -6,7 +6,7 @@ import java.io.IOException;
 public class Tile {
     private BufferedImage image;
     private int tileType;
-    private String CAVE_TILE = "tiles/CaveTile.png";
+    private String tileName;
 
     public Tile(int tileType) {
         this.tileType = tileType;
@@ -15,7 +15,7 @@ public class Tile {
 
     public void setTileType(int tileType) {
         this.tileType = tileType;
-        image = loadImage(CAVE_TILE);
+        image = loadImage("Tiles/file1.png");
     }
 
     public BufferedImage loadImage(String fileName) {

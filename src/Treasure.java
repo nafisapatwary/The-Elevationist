@@ -14,7 +14,7 @@ public class Treasure {
 
 
     public Treasure(int x, int y) {
-        image = loadImage(image_file);
+        image = loadImage("sprites/treasure.png");
         this.x = x;
         this.y = y;
     }

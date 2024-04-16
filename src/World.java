@@ -3,13 +3,17 @@ import java.io.File;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 
-public class
-World {
+public class World {
     private Tile [][] level;
-    private Player player;
 
-    public World() {
-        generateWorld();
+    private String worldName;
+
+    private ArrayList<Treasure> treasures = new ArrayList<Treasure>();
+
+    public World(String fileName) {
+        generateWorld(fileName);
+        worldName = fileName;
+        generateTreasure();
     }
 
 
@@ -45,8 +49,8 @@ World {
     }
     
     // generates each level
-    private void generateWorld() {
-        int[][] mazeData = getWorld("levels/cave_file");
+    private void generateWorld(String filename) {
+        int[][] mazeData = getWorld(filename);
 
         level = new Tile[mazeData.length][mazeData[0].length];
         for (int r = 0; r < level.length; r++) {
@@ -57,7 +61,23 @@ World {
         }
     }
 
+    private void generateTreasure(){
+        for (int i = 0; i < 4; i++){
+            int randX = (int)(Math.random() * 850 + 50);
+            int randY = (int)(Math.random() * 850 + 50);
+            treasures.add(new Treasure(randX, randY));
+        }
+    }
+
+    public ArrayList<Treasure> getTreasures() {
+        return treasures;
+    }
+
     public Tile[][] getLevel() {
         return level;
+    }
+
+    public String getWorldName() {
+        return worldName;
     }
 }
