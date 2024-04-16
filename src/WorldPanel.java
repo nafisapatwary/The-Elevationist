@@ -65,6 +65,7 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
         p.updateRectPos(p.getX(), p.getY());
         g.drawImage(p.getImage(), p.getX(), p.getY(), null);
         for (int i = 0; i < currentWorld.getTreasures().size(); i++){
+            Rectangle currTreasureRec = currentWorld.getTreasures().get(i).getTreasureRect();
             Treasure curr = currentWorld.getTreasures().get(i);
             g.drawImage(curr.getImage(), curr.getX(), curr.getY(), null);
         }
@@ -72,6 +73,7 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
 
     public boolean checkCollision(Rectangle x, Rectangle y){
         if (x.intersects(y)) {
+            System.out.println("a");
             return true;
         }
         return false;
