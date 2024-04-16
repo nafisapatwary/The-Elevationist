@@ -7,16 +7,16 @@ import java.lang.Object;
 
 public class Treasure {
     private BufferedImage image;
-
-    private final String image_file = "sprites/treasure.png";
-    private int x = 100;
-    private int y = 100;
-
+    private String image_file;
+    private int x;
+    private int y;
     private Rectangle treasureRect = new Rectangle(x, y, 40, 37);
 
 
-    public Treasure() {
+    public Treasure(int x, int y) {
         image = loadImage(image_file);
+        this.x = x;
+        this.y = y;
     }
 
     public BufferedImage loadImage(String fileName) {
