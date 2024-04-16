@@ -41,8 +41,7 @@ public class World {
         for (int i = 0; i < fileData.size(); i++) {
             String d = fileData.get(i);
             for (int j = 0; j < d.length(); j++) {
-                if (d.charAt(j) == '#')
-                    worldData[i][j] = 1;
+                worldData[i][j] = Integer.parseInt(d.charAt(j) + "");
             }
         }
         return worldData;
