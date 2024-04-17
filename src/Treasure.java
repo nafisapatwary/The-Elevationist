@@ -54,4 +54,10 @@ public class Treasure {
     public Rectangle getTreasureRect() {
         return treasureRect;
     }
+
+    public void updatePositions(int newX, int newY) {
+        this.x = newX;
+        this.y = newY;
+        treasureRect.setLocation(newX, newY);
+    }
 }

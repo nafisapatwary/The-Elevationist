@@ -12,7 +12,6 @@ import java.awt.event.KeyEvent;
 
 
 public class WorldPanel extends JPanel implements MouseListener, KeyListener {
-
     private Rectangle button;
     private Player p;
     private World currentWorld;
@@ -20,7 +19,7 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
     private boolean moveLeft = false;
     private boolean moveRight = false;
     private boolean moveDown = false;
-//    private Treasure t;
+
 
     public WorldPanel(){
         button = new Rectangle(75, 200, 160, 26);
@@ -30,12 +29,17 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
         //change later
         currentWorld = new World("levels/cave_file");
         p = new Player();
-//        t = new Treasure();
     }
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        //Display Tiles
+        drawTiles(g);
+        drawPlayer(g);
+        drawTreasures(g);
+    }
+
+    // display tiles
+    private void drawTiles(Graphics g) {
         int x = 0;
         int y = 0;
         for (int row = 0; row < currentWorld.getLevel().length; row++) {
@@ -47,8 +51,11 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
             x = 0;
             y = y + 47;
         }
+    }
 
-        Rectangle pRect = p.getPlayerRect();
+    // display player
+    private void drawPlayer(Graphics g) {
+        // player movement
         if (moveUp) {
             p.setY(p.getY() - 1);
         }
@@ -61,24 +68,39 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
         if (moveDown) {
             p.setY(p.getY() + 1);
         }
-//        checkCollision(pRect, tRect);
         p.updateRectPos(p.getX(), p.getY());
         g.drawImage(p.getImage(), p.getX(), p.getY(), null);
-        for (int i = 0; i < currentWorld.getTreasures().size(); i++){
-            Rectangle currTreasureRec = currentWorld.getTreasures().get(i).getTreasureRect();
-            Treasure curr = currentWorld.getTreasures().get(i);
-            g.drawImage(curr.getImage(), curr.getX(), curr.getY(), null);
+    }
+
+    // display treasures
+    private void drawTreasures(Graphics g) {
+        for (Treasure treasure : currentWorld.getTreasures()) {
+            g.drawImage(treasure.getImage(), treasure.getX(), treasure.getY(), null);
         }
     }
 
-    public boolean checkCollision(Rectangle x, Rectangle y){
-        if (x.intersects(y)) {
-            System.out.println("a");
-            return true;
+    // collisions
+    private void checkCollisions() {
+        Rectangle pRect = p.getPlayerRect();
+        ArrayList<Treasure> treasuresToRemove = new ArrayList<>();
+
+        for (Treasure t : currentWorld.getTreasures()) {
+            Rectangle tRect = t.getTreasureRect();
+            if (pRect.intersects(tRect)) {
+                treasuresToRemove.add(t);
+                System.out.println("collided");
+            }
         }
-        return false;
+
+        currentWorld.getTreasures().removeAll(treasuresToRemove);
+        if (currentWorld.getTreasures().isEmpty() && currentWorld.isWon() != true) {
+            System.out.println("You won!");
+            currentWorld.setWon(true);
+        }
     }
 
+
+    // MOUSE AND KEY INTERACTIONS
     public void mousePressed(MouseEvent e){
         Point clicked = e.getPoint();
         System.out.println("Mouse Clicked");
@@ -92,7 +114,6 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_W){
             moveUp = true;
-            p.setY(p.getY() - 1);
         }
         if (e.getKeyCode() == KeyEvent.VK_A) {
             moveLeft = true;
@@ -109,7 +130,6 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_W){
             moveUp = false;
-
         }
         if (e.getKeyCode() == KeyEvent.VK_A) {
             moveLeft = false;
@@ -120,6 +140,8 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
         if (e.getKeyCode() == KeyEvent.VK_S) {
             moveDown = false;
         }
+        checkCollisions();
+        repaint();
     }
 
     public void keyTyped(KeyEvent e) {

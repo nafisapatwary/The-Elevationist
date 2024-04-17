@@ -5,10 +5,10 @@ import java.io.FileNotFoundException;
 
 public class World {
     private Tile [][] level;
-
     private String worldName;
-
     private ArrayList<Treasure> treasures = new ArrayList<Treasure>();
+    private boolean won;
+    private boolean lost;
 
     public World(String fileName) {
         generateWorld(fileName);
@@ -50,7 +50,6 @@ public class World {
     // generates each level
     private void generateWorld(String filename) {
         int[][] mazeData = getWorld(filename);
-
         level = new Tile[mazeData.length][mazeData[0].length];
         for (int r = 0; r < level.length; r++) {
             for (int c = 0; c < level[0].length; c++) {
@@ -60,12 +59,15 @@ public class World {
         }
     }
 
+    // generates the treasure for each level
     private void generateTreasure(){
         for (int i = 0; i < 4; i++){
             int randX = (int)(Math.random() * 850 + 50);
             int randY = (int)(Math.random() * 850 + 50);
             treasures.add(new Treasure(randX, randY));
+            treasures.get(i).updatePositions(randX, randY);
         }
+
     }
 
     public ArrayList<Treasure> getTreasures() {
@@ -78,5 +80,21 @@ public class World {
 
     public String getWorldName() {
         return worldName;
+    }
+
+    public boolean isWon() {
+        return won;
+    }
+
+    public void setWon(boolean won) {
+        this.won = won;
+    }
+
+    public boolean isLost() {
+        return lost;
+    }
+
+    public void setLost(boolean lost) {
+        this.lost = lost;
     }
 }
