@@ -10,11 +10,11 @@ public class Treasure {
     private String image_file;
     private int x;
     private int y;
-    private Rectangle treasureRect = new Rectangle(x, y, 40, 37);
+    private Rectangle treasureRect = new Rectangle(x, y, 47, 37);
 
 
     public Treasure(int x, int y) {
-        image = loadImage("sprites/treasure.png");
+        image = loadImage("sprites/closedChest.png");
         this.x = x;
         this.y = y;
     }

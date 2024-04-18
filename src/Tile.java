@@ -15,8 +15,10 @@ public class Tile {
 
     public void setTileType(int tileType) {
         this.tileType = tileType;
-        if (tileType == 0) image = loadImage("Tiles/file1.png");
-        if (tileType == 1) image = loadImage("Tiles/file2.png");
+        if (tileType == 0) image = loadImage("Tiles/file0.png");
+        if (tileType == 1) image = loadImage("Tiles/file0.png");
+        if (tileType == 2) image = loadImage("Tiles/file0.png");
+
     }
 
 
