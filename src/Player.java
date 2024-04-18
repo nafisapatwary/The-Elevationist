@@ -13,10 +13,12 @@ public class Player {
     private final String image_file = "sprites/player_file_cat.png";
     private int x = 0;
     private int y = 0;
-    private Rectangle playerRect = new Rectangle(x, y, 47, 47);
+    private Rectangle playerRect = new Rectangle(x, y, 60, 60);
+    private int speed;
 
     public Player() {
         image = loadImage(image_file);
+        speed = 2;
     }
 
     public BufferedImage loadImage(String fileName) {
@@ -57,5 +59,13 @@ public class Player {
 
     public void updateRectPos(int newX, int newY) {
         playerRect.setLocation(newX, newY);
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
 }

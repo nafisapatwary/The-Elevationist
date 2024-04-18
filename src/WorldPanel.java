@@ -69,16 +69,16 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
     private void drawPlayer(Graphics g) {
         // player movement
         if (moveUp) {
-            p.setY(p.getY() - 1);
+            p.setY(p.getY() - p.getSpeed());
         }
         if (moveLeft) {
-            p.setX(p.getX() - 1);
+            p.setX(p.getX() - p.getSpeed());
         }
         if (moveRight) {
-            p.setX(p.getX() + 1);
+            p.setX(p.getX() + p.getSpeed());
         }
         if (moveDown) {
-            p.setY(p.getY() + 1);
+            p.setY(p.getY() + p.getSpeed());
         }
         p.updateRectPos(p.getX(), p.getY());
         g.drawImage(p.getImage(), p.getX(), p.getY(), null);
@@ -110,7 +110,12 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
             currentWorld = levels.get(count);
             System.out.println(count);
             System.out.println(currentWorld.getWorldName());
+            setPlayerSpeed(count);
         }
+    }
+
+    public void setPlayerSpeed(int count){
+        if (count == 1) p.setSpeed(3);
     }
 
 

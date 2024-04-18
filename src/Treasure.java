@@ -10,7 +10,7 @@ public class Treasure {
     private String image_file;
     private int x;
     private int y;
-    private Rectangle treasureRect = new Rectangle(x, y, 47, 37);
+    private Rectangle treasureRect = new Rectangle(x, y, 50, 47);
 
 
     public Treasure(int x, int y) {
