@@ -2,24 +2,29 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Tile {
     private BufferedImage image;
     private int tileType;
     private String tileName;
 
+    private ArrayList<String> tileFiles = new ArrayList<String>();
+
     public Tile(int tileType) {
         this.tileType = tileType;
+        generateTileList();
         this.setTileType(tileType);
     }
 
-    public void setTileType(int tileType) {
-        this.tileType = tileType;
-        if (tileType == 0) image = loadImage("Tiles/file0.png");
-        if (tileType == 1) image = loadImage("Tiles/file0.png");
-        if (tileType == 2) image = loadImage("Tiles/file0.png");
-        if (tileType == 3) image = loadImage("Tiles/file3.png");
+    public void generateTileList(){
+        for (int i = 0; i < 9; i++){
+            tileFiles.add("Tiles/file" + i + ".png");
+        }
+    }
 
+    public void setTileType(int tileType) {
+        image = loadImage(tileFiles.get(tileType));
     }
 
 
