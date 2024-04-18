@@ -18,6 +18,7 @@ public class Tile {
         if (tileType == 0) image = loadImage("Tiles/file0.png");
         if (tileType == 1) image = loadImage("Tiles/file0.png");
         if (tileType == 2) image = loadImage("Tiles/file0.png");
+        if (tileType == 3) image = loadImage("Tiles/file3.png");
 
     }
 

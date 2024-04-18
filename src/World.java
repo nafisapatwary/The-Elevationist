@@ -9,6 +9,7 @@ public class World {
     private ArrayList<Treasure> treasures = new ArrayList<Treasure>();
     private boolean won;
     private boolean lost;
+    private int worldLevel = 0;
 
     public World(String fileName) {
         generateWorld(fileName);
@@ -96,5 +97,13 @@ public class World {
 
     public void setLost(boolean lost) {
         this.lost = lost;
+    }
+
+    public int getWorldLevel() {
+        return worldLevel;
+    }
+
+    public void setWorldLevel(int worldLevel) {
+        this.worldLevel = worldLevel;
     }
 }

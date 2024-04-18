@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
@@ -19,7 +20,8 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
     private boolean moveLeft = false;
     private boolean moveRight = false;
     private boolean moveDown = false;
-    private World oceanLevel = new World("levels/ocean_file");
+    private ArrayList<World> levels = new ArrayList<>();
+    private int count = 0;
 
 
     public WorldPanel(){
@@ -28,7 +30,8 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
         this.addMouseListener(this);
         this.addKeyListener(this);
         //change later
-        currentWorld = new World("levels/cave_file");
+        generateWorldList();
+        currentWorld = levels.get(count);
         p = new Player();
     }
 
@@ -37,6 +40,14 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
         drawTiles(g);
         drawPlayer(g);
         drawTreasures(g);
+    }
+
+    public void generateWorldList() {
+        levels.add(new World("levels/cave_file"));
+        levels.add(new World("levels/ocean_file"));
+        for (World l: levels){
+            System.out.println(l.getWorldName());
+        }
     }
 
     // display tiles
@@ -96,7 +107,12 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
         currentWorld.getTreasures().removeAll(treasuresToRemove);
         if (currentWorld.getTreasures().isEmpty() && currentWorld.isWon() != true) {
             System.out.println("You won!");
-            currentWorld.setWon(true);
+//            currentWorld.setWon(true);
+            count++;
+            currentWorld = levels.get(count);
+//            currentWorld.setWorldLevel(count);
+            System.out.println(count);
+            System.out.println(currentWorld.getWorldName());
         }
     }
 
