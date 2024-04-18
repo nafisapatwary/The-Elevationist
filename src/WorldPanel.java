@@ -19,6 +19,7 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
     private boolean moveLeft = false;
     private boolean moveRight = false;
     private boolean moveDown = false;
+    private World oceanLevel = new World("levels/ocean_file");
 
 
     public WorldPanel(){
