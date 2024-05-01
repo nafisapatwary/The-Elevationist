@@ -6,6 +6,7 @@ public class Combination {
             String combination = Combination.genNumCombination(value, length);
         }
         else if (value == 1 || value == 2) {
+            // change duplicate
         }
     }
 
