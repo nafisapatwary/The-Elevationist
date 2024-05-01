@@ -8,7 +8,6 @@ import java.util.HashMap;
 public class Tile {
     private BufferedImage image;
     private String tileType;
-    private String tileName;
     private HashMap<String, String> tileFiles = new HashMap<String, String>();
 
     public Tile(String tileType) {
@@ -18,7 +17,6 @@ public class Tile {
     }
 
     public void setTileType(String tileType) {
-        System.out.println("THIS IS THE TILE NUM: " + tileFiles.get(tileType));
         image = loadImage("Tiles/" + tileFiles.get(tileType));
     }
 
