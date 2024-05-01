@@ -3,31 +3,36 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Tile {
     private BufferedImage image;
-    private int tileType;
+    private String tileType;
     private String tileName;
+    private HashMap<String, String> tileFiles = new HashMap<String, String>();
 
-    private ArrayList<String> tileFiles = new ArrayList<String>();
-
-    public Tile(int tileType) {
+    public Tile(String tileType) {
         this.tileType = tileType;
-        generateTileList();
+        generateTilesHash();
         this.setTileType(tileType);
     }
 
-    public void generateTileList(){
-        for (int i = 0; i < 9; i++){
-            tileFiles.add("Tiles/file" + i + ".png");
+    public void setTileType(String tileType) {
+        System.out.println("THIS IS THE TILE NUM: " + tileFiles.get(tileType));
+        image = loadImage("Tiles/" + tileFiles.get(tileType));
+    }
+
+    public void generateTilesHash(){
+        for (int i = 0; i < 10; i++){
+            tileFiles.put(Integer.toString(i), "file" + i + ".png");
         }
+        tileFiles.put("#", "file10.png");
+        tileFiles.put("@", "file11.png");
+        tileFiles.put("$", "file12.png");
+        tileFiles.put("%", "file13.png");
+        tileFiles.put("*", "file14.png");
+        tileFiles.put("+", "file15.png");
     }
-
-    public void setTileType(int tileType) {
-        image = loadImage(tileFiles.get(tileType));
-    }
-
-
 
     public BufferedImage loadImage(String fileName) {
         try {
@@ -45,7 +50,7 @@ public class Tile {
         return image;
     }
 
-    public int getTileType() {
+    public String getTileType() {
         return tileType;
     }
 

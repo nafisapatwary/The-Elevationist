@@ -106,7 +106,8 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
 
         currentWorld.getTreasures().removeAll(treasuresToRemove);
         if (currentWorld.getTreasures().isEmpty()) {
-            System.out.println("You won!");count++;
+            System.out.println("You won!");
+            count++;
             currentWorld = levels.get(count);
             System.out.println(count);
             System.out.println(currentWorld.getWorldName());

@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.io.File;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
 
 public class World {
     private Tile [][] level;
@@ -19,7 +20,7 @@ public class World {
 
 
     // reads the file
-    private int[][] getWorld(String fileName) {
+    private String[][] getWorld(String fileName) {
         File f = new File(fileName);
         Scanner s = null;
         try {
@@ -37,12 +38,12 @@ public class World {
         int rows = fileData.size();
         int cols = fileData.get(0).length();
 
-        int[][] worldData = new int[rows][cols];
+        String[][] worldData = new String[rows][cols];
 
         for (int i = 0; i < fileData.size(); i++) {
             String d = fileData.get(i);
             for (int j = 0; j < d.length(); j++) {
-                worldData[i][j] = Integer.parseInt(d.charAt(j) + "");
+                worldData[i][j] = d.charAt(j) + "";
             }
         }
         return worldData;
@@ -50,7 +51,7 @@ public class World {
     
     // generates each level
     private void generateWorld(String filename) {
-        int[][] mazeData = getWorld(filename);
+        String[][] mazeData = getWorld(filename);
         level = new Tile[mazeData.length][mazeData[0].length];
         for (int r = 0; r < level.length; r++) {
             for (int c = 0; c < level[0].length; c++) {
