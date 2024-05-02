@@ -21,7 +21,7 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
     private boolean moveRight = false;
     private boolean moveDown = false;
     private ArrayList<World> levels = new ArrayList<>();
-    private int count = 0;
+    private int count;
 
 
     public WorldPanel(){
@@ -32,6 +32,7 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
         //change later
         generateWorldList();
         currentWorld = levels.get(count);
+        count = currentWorld.getCount();
         p = new Player();
     }
 
@@ -167,5 +168,4 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
     public void keyTyped(KeyEvent e) {
         char key = e.getKeyChar();
     }
-
 }

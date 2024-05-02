@@ -10,6 +10,7 @@ public class World {
     private ArrayList<Treasure> treasures = new ArrayList<Treasure>();
     private boolean won;
     private boolean lost;
+    private int count = 0;
 
 
     public World(String fileName) {
@@ -98,5 +99,13 @@ public class World {
 
     public void setLost(boolean lost) {
         this.lost = lost;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 }
