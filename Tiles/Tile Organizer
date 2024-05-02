@@ -1,0 +1,26 @@
+//CAVE LEVEL
+file0 - base stone
+file1 - blue ore
+file2 - red ore
+file15 (+) - green ore
+
+//OCEAN LEVEL
+file3 - base water
+file4 - kelp
+file5 - coral
+
+//GROUND LEVEL
+file6 - dirt
+file7 - grass
+file8 - flowers
+file9 - sky
+
+//SKY LEVEL
+file9 - sky
+file10 (#) - darker sky
+file11 (@) - cloud
+
+//SPACE LEVEL
+file12 ($) - space/sky (black + stars)
+file13 (%) - moon
+file14 (*) - big stars
