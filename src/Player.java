@@ -18,7 +18,7 @@ public class Player {
 
     public Player() {
         image = loadImage(image_file);
-        speed = 2;
+        speed = 3;
     }
 
     public BufferedImage loadImage(String fileName) {

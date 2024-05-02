@@ -46,6 +46,9 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
     public void generateWorldList() {
         levels.add(new World("levels/cave_file"));
         levels.add(new World("levels/ocean_file"));
+        levels.add(new World("levels/ground_file"));
+        levels.add(new World("levels/sky_file"));
+        levels.add(new World("levels/space_file"));
         for (World l: levels){
             System.out.println(l.getWorldName());
         }
