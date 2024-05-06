@@ -10,6 +10,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
+import java.util.Scanner;
 
 
 public class WorldPanel extends JPanel implements MouseListener, KeyListener {
@@ -22,7 +23,9 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
     private boolean moveDown = false;
     private ArrayList<World> levels = new ArrayList<>();
     private int count;
+    Scanner s = new Scanner(System.in);
 
+    private boolean treasureMode;
 
     public WorldPanel(){
         button = new Rectangle(75, 200, 160, 26);
@@ -34,6 +37,7 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
         currentWorld = levels.get(count);
         count = currentWorld.getCount();
         p = new Player();
+        treasureMode = false;
     }
 
     protected void paintComponent(Graphics g) {
@@ -103,8 +107,15 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
         for (Treasure t : currentWorld.getTreasures()) {
             Rectangle tRect = t.getTreasureRect();
             if (pRect.intersects(tRect)) {
-                treasuresToRemove.add(t);
-                System.out.println("collided");
+                // start to implement the combination function here
+                // the text needs to be on the screen + time
+                String c = Combination.chooseCombination(count, count + 3);
+                System.out.println("Your combination is: " + c);
+                System.out.print("Enter the combination: ");
+                String guess = s.next();
+                if (guess.equals(c)) {
+                    treasuresToRemove.add(t);
+                }
             }
         }
 
@@ -136,17 +147,22 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
     public void mouseClicked(MouseEvent e) { }
 
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_W){
-            moveUp = true;
+        if (treasureMode) {
+            // where the user has to enter the combination - getKeyCode?
         }
-        if (e.getKeyCode() == KeyEvent.VK_A) {
-            moveLeft = true;
-        }
-        if (e.getKeyCode() == KeyEvent.VK_D) {
-            moveRight = true;
-        }
-        if (e.getKeyCode() == KeyEvent.VK_S) {
-            moveDown = true;
+        else {
+            if (e.getKeyCode() == KeyEvent.VK_W){
+                moveUp = true;
+            }
+            if (e.getKeyCode() == KeyEvent.VK_A) {
+                moveLeft = true;
+            }
+            if (e.getKeyCode() == KeyEvent.VK_D) {
+                moveRight = true;
+            }
+            if (e.getKeyCode() == KeyEvent.VK_S) {
+                moveDown = true;
+            }
         }
     }
 

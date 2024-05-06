@@ -1,7 +1,7 @@
 public class Combination {
 
     // value will be currentWorld's count
-    public String chooseCombination(int value, int length) {
+    public static String chooseCombination(int value, int length) {
         String combination = "";
 
         if (value == 0) {
