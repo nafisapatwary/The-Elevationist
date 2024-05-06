@@ -21,6 +21,22 @@ public class Player {
         speed = 3;
     }
 
+    public void move(String keyPressed){
+        String key = keyPressed.toLowerCase();
+        if (key.equals("w")) {
+            setY(getY() - getSpeed());
+        }
+        if (key.equals("a")) {
+            setX(getX() - getSpeed());
+        }
+        if (key.equals("d")) {
+            setX(getX() + getSpeed());
+        }
+        if (key.equals("s")) {
+            setY(getY() + getSpeed());
+        }
+    }
+
     public BufferedImage loadImage(String fileName) {
         try {
             BufferedImage image;

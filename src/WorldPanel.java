@@ -109,13 +109,13 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
             if (pRect.intersects(tRect)) {
                 // start to implement the combination function here
                 // the text needs to be on the screen + time
-                String c = Combination.chooseCombination(count, count + 3);
-                System.out.println("Your combination is: " + c);
-                System.out.print("Enter the combination: ");
-                String guess = s.next();
-                if (guess.equals(c)) {
+//                String c = Combination.chooseCombination(count, count + 3);
+//                System.out.println("Your combination is: " + c);
+//                System.out.print("Enter the combination: ");
+//                String guess = s.next();
+//                if (guess.equals(c)) {
                     treasuresToRemove.add(t);
-                }
+//                }
             }
         }
 

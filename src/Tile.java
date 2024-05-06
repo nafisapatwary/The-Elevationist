@@ -30,6 +30,8 @@ public class Tile {
         tileFiles.put("%", "file13.png");
         tileFiles.put("*", "file14.png");
         tileFiles.put("+", "file15.png");
+        tileFiles.put("A", "file16.png");
+
     }
 
     public BufferedImage loadImage(String fileName) {
