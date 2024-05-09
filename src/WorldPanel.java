@@ -75,6 +75,7 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
 
     // display player
     private void drawPlayer(Graphics g) {
+        checkBorders();
         // player movement
         if (moveUp) {
             p.setY(p.getY() - p.getSpeed());
@@ -90,6 +91,14 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
         }
         p.updateRectPos(p.getX(), p.getY());
         g.drawImage(p.getImage(), p.getX(), p.getY(), null);
+    }
+
+    private void checkBorders(){
+        if (p.getY() == 924) moveDown = false;
+        if (p.getY() == 0) moveUp = false;
+        if (p.getX() == 0) moveLeft = false;
+        if (p.getX() == 975) moveRight = false;
+
     }
 
     // display treasures
@@ -152,15 +161,19 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
         }
         else {
             if (e.getKeyCode() == KeyEvent.VK_W){
+//                p.move("w");
                 moveUp = true;
             }
             if (e.getKeyCode() == KeyEvent.VK_A) {
+//                p.move("a");
                 moveLeft = true;
             }
             if (e.getKeyCode() == KeyEvent.VK_D) {
+//                p.move("d");
                 moveRight = true;
             }
             if (e.getKeyCode() == KeyEvent.VK_S) {
+//                p.move("s");
                 moveDown = true;
             }
         }
