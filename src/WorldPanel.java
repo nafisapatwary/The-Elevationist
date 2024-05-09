@@ -26,6 +26,7 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
     Scanner s = new Scanner(System.in);
 
     private boolean treasureMode;
+    private boolean newLevel;
 
     public WorldPanel(){
         button = new Rectangle(75, 200, 160, 26);
@@ -38,6 +39,7 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
         count = currentWorld.getCount();
         p = new Player();
         treasureMode = false;
+        newLevel = false;
     }
 
     protected void paintComponent(Graphics g) {
@@ -75,8 +77,13 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
 
     // display player
     private void drawPlayer(Graphics g) {
+        if (newLevel){
+            p.setX(450);
+            p.setY(700);
+        }
+
         checkBorders();
-        // player movement
+        System.out.println("X: " + p.getX() + ", Y: " + p.getY());
         if (moveUp) {
             p.setY(p.getY() - p.getSpeed());
         }
@@ -98,6 +105,9 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
         if (p.getY() == 0) moveUp = false;
         if (p.getX() == 0) moveLeft = false;
         if (p.getX() == 975) moveRight = false;
+        if (count == 2){
+            if (p.getY() < 513) moveUp = false;
+        }
 
     }
 
@@ -132,10 +142,14 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
         if (currentWorld.getTreasures().isEmpty()) {
             System.out.println("You won!");
             count++;
+            newLevel = true;
             currentWorld = levels.get(count);
             System.out.println(count);
             System.out.println(currentWorld.getWorldName());
             setPlayerSpeed(count);
+        }
+        else{
+            newLevel = false;
         }
     }
 
