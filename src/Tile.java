@@ -31,6 +31,9 @@ public class Tile {
         tileFiles.put("*", "file14.png");
         tileFiles.put("+", "file15.png");
         tileFiles.put("A", "file16.png");
+        tileFiles.put("B", "file17.png");
+        tileFiles.put("C", "file18.png");
+        tileFiles.put("D", "file19.png");
 
     }
 

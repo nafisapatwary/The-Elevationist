@@ -27,7 +27,7 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
     Scanner s = new Scanner(System.in);
     private boolean newLevel;
     private boolean canMove;
-    private boolean collided;
+    private boolean stillColliding;
 
 
     // for text box
@@ -55,7 +55,8 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
         p = new Player();
         newLevel = false;
         canMove = true;
-        collided = false;
+        stillColliding = false;
+
 
 
         combinationField = new JTextField();
@@ -150,11 +151,9 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
         if (p.getY() == 0) moveUp = false;
         if (p.getX() == 0) moveLeft = false;
         if (p.getX() == 975) moveRight = false;
-        if (count == 2){
-            if (p.getY() < 513) moveUp = false;
-        }
-
-
+//        if (count == 2){
+//            if (p.getY() < 513) moveUp = false;
+//        }
     }
 
 
@@ -175,6 +174,7 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
         for (Treasure t : currentWorld.getTreasures()) {
             Rectangle tRect = t.getTreasureRect();
             if (pRect.intersects(tRect)) {
+                treasuresToRemove.add(t);
                 // start to implement the combination function here
                 // the text needs to be on the screen + time
 //                String c = Combination.chooseCombination(count, count + 3);
@@ -184,16 +184,17 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
 //                if (guess.equals(c)) {
 //                treasuresToRemove.add(t);
 //                }
-                displayCombination = true;
-                canMove = false;
-                if (!collided){
-                    generatedCombo = Combination.chooseCombination(count, count + 3);
-                    combinationField.setText(generatedCombo);
-                }
-//                generatedCombo = Combination.chooseCombination(count, count + 3);
-//                combinationField.setText(generatedCombo);
-                collided = true;
-                combinationField.requestFocus();
+
+//                displayCombination = true;
+//                canMove = false;
+//                if (!stillColliding){
+//                    generatedCombo = Combination.chooseCombination(count, count + 3);
+//                    combinationField.setText(generatedCombo);
+//                }
+////                generatedCombo = Combination.chooseCombination(count, count + 3);
+////                combinationField.setText(generatedCombo);
+//                stillColliding = true;
+//                combinationField.requestFocus();
             }
         }
 
@@ -280,7 +281,7 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
                 displayCombination = false;
                 repaint();
                 canMove = true;
-                collided = false;
+                stillColliding = false;
             }
         }
         checkCollisions();

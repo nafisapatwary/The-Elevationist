@@ -11,15 +11,19 @@ file5 - coral
 
 //GROUND LEVEL
 file6 - dirt
-file7 - strawberry 1
-file16 (+) - strawberry 2
-file8 - flowers
+file7 - grass
+file8 - strawberry 1
+file16 (A) - strawberry 2
 file9 - sky
 
+
 //SKY LEVEL
+file17 (B) - dark / light sky gradient
 file9 - sky
 file10 (#) - darker sky
 file11 (@) - cloud
+file18 (C) - right side gradient
+file19 (D) - left side gradient
 
 //SPACE LEVEL
 file12 ($) - space/sky (black + stars)
