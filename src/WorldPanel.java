@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 import java.awt.image.BufferedImage;
@@ -14,7 +15,7 @@ import javax.swing.*;
 
 
 
-public class WorldPanel extends JPanel implements MouseListener, KeyListener {
+public class WorldPanel extends JPanel implements MouseListener, KeyListener, ActionListener {
     private Rectangle button;
     private Player p;
     private World currentWorld;
@@ -165,49 +166,59 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
         }
     }
 
+    public void drawTransition(Graphics g){
+        setBackground(Color.BLACK);
+        g.drawImage("");
+        //implement some sort of decoration behind
+    }
+
 
     // collisions
     private void checkCollisions() {
         Rectangle pRect = p.getPlayerRect();
+        ArrayList<Treasure> treasuresToRemove = new ArrayList<>();
+
+
         for (Treasure t : currentWorld.getTreasures()) {
             Rectangle tRect = t.getTreasureRect();
             if (pRect.intersects(tRect)) {
+                // start to implement the combination function here
+                // the text needs to be on the screen + time
+//                String c = Combination.chooseCombination(count, count + 3);
+//                System.out.println("Your combination is: " + c);
+//                System.out.print("Enter the combination: ");
+//                String guess = s.next();
+//                if (guess.equals(c)) {
+//                treasuresToRemove.add(t);
+//                }
                 displayCombination = true;
                 canMove = false;
                 if (!collided){
                     generatedCombo = Combination.chooseCombination(count, count + 3);
                     combinationField.setText(generatedCombo);
                 }
+//                generatedCombo = Combination.chooseCombination(count, count + 3);
+//                combinationField.setText(generatedCombo);
                 collided = true;
                 combinationField.requestFocus();
             }
         }
-    }
 
-   public void removeTreasures() {
 
-       Rectangle pRect = p.getPlayerRect();
-       ArrayList<Treasure> treasuresToRemove = new ArrayList<>();
-       for (int i = 0; i < currentWorld.getTreasures().size(); i++) {
-            Rectangle tRect = currentWorld.getTreasures().get(i).getTreasureRect();
-            if (pRect.intersects(tRect)) {
-                treasuresToRemove.add(currentWorld.getTreasures().get(i));
-            }
+        currentWorld.getTreasures().removeAll(treasuresToRemove);
+        if (currentWorld.getTreasures().isEmpty()) {
+            System.out.println("You won!");
+            count++;
+            newLevel = true;
+            currentWorld = levels.get(count);
+            System.out.println(count);
+            System.out.println(currentWorld.getWorldName());
+            setPlayerSpeed(count);
         }
-       currentWorld.getTreasures().removeAll(treasuresToRemove);
-       if (currentWorld.getTreasures().isEmpty()) {
-           System.out.println("You won!");
-           count++;
-           newLevel = true;
-           currentWorld = levels.get(count);
-           setPlayerSpeed(count);
-           System.out.println(collided);
-           System.out.println(canMove);
-       }
-       else{
-           newLevel = false;
-       }
-   }
+        else{
+            newLevel = false;
+        }
+    }
 
 
     public void setPlayerSpeed(int count){
@@ -269,6 +280,16 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
         if (e.getKeyCode() == KeyEvent.VK_S) {
             moveDown = false;
         }
+
+
+        if (e.getKeyCode() == KeyEvent.VK_ENTER && displayCombination) {
+            if (userInput.equals(generatedCombo)) {
+                displayCombination = false;
+                repaint();
+                canMove = true;
+                collided = false;
+            }
+        }
         checkCollisions();
         repaint();
     }
@@ -282,15 +303,9 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
             }
             else{
                 userInput += key;
-                if (userInput.equals(generatedCombo)) {
-                    removeTreasures();
-                    userInput = "";
-                    displayCombination = false;
-                    canMove = true;
-                    collided = false;
-                }
             }
             repaint();
         }
+        System.out.println(userInput);
     }
 }
