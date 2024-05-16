@@ -18,6 +18,7 @@ import javax.swing.*;
 public class WorldPanel extends JPanel implements MouseListener, KeyListener{
     private Rectangle button;
     private Player p;
+    private Monster m;
     private World currentWorld;
     private boolean moveUp = false;
     private boolean moveLeft = false;
@@ -56,10 +57,11 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener{
         currentWorld = levels.get(count);
         count = currentWorld.getCount();
         p = new Player();
+        m = new Monster();
+        m.updateWorld(currentWorld);
         canMove = true;
         collided = false;
         transition = false;
-
 
         combinationField = new JTextField();
         combinationField.setBounds(box_x + 50, box_y + 30, 50, 30);
@@ -76,6 +78,7 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener{
         else{
             drawTiles(g);
             drawPlayer(g);
+            drawMonsters(g);
             drawTreasures(g);
             drawCBox(g);
         }
@@ -149,6 +152,11 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener{
         g.drawImage(p.getImage(), p.getX(), p.getY(), null);
     }
 
+    // displays the monsters
+    private void drawMonsters(Graphics g) {
+        m.updateRectPos(m.getX(), m.getY());
+        g.drawImage(m.getImage(), m.getX(), m.getY(), null);
+    }
 
     private void checkBorders() {
         if (p.getY() == 924) moveDown = false;
@@ -175,7 +183,7 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener{
 
 
     // collisions
-    private void checkCollisions() {
+    private void checkTreasureCollisions() {
         Rectangle pRect = p.getPlayerRect();
         for (Treasure t : currentWorld.getTreasures()) {
             Rectangle tRect = t.getTreasureRect();
@@ -189,6 +197,12 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener{
                 collided = true;
                 combinationField.requestFocus();
             }
+        }
+    }
+
+    public void checkMonsterCollisions() {
+        if (m.getMonsterRect().intersects(p.getPlayerRect())) {
+            currentWorld.setLost(true);
         }
     }
 
@@ -209,8 +223,7 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener{
             currTime = System.currentTimeMillis();
             currentWorld = levels.get(count);
             setPlayerSpeed(count);
-            System.out.println(collided);
-            System.out.println(canMove);
+            m.updateWorld(currentWorld);
         }
     }
 
@@ -219,6 +232,14 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener{
         if (count == 1) p.setSpeed(3);
     }
 
+    public void checkConditions() {
+        if (currentWorld.isWon()) {
+            System.out.println("you won the game!"); // filler
+        }
+        else if (currentWorld.isLost()) {
+            System.out.println("you lost the game!");
+        }
+    }
 
     // MOUSE AND KEY INTERACTIONS
     public void mousePressed(MouseEvent e) {
@@ -275,7 +296,9 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener{
         if (e.getKeyCode() == KeyEvent.VK_S) {
             moveDown = false;
         }
-        checkCollisions();
+        checkTreasureCollisions();
+        checkMonsterCollisions();
+        checkConditions();
         repaint();
     }
 

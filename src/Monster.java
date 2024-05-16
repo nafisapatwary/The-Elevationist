@@ -6,19 +6,22 @@ import java.io.IOException;
 import java.nio.Buffer;
 import java.lang.Object;
 
+
 public class Monster {
     private BufferedImage image;
     private String imageFile = "sprites/monster_file.PNG";
-    private int x; // where the monsters spawn in
-    private int y;
+    private int x = 750; // where the monsters spawn in
+    private int y = 750;
     private Rectangle monsterRect = new Rectangle(x, y, 60, 60);
     private int speed;
     private Player p;
     private World currentWorld;
 
     public Monster() {
+        p = new Player();
         image = loadImage(imageFile);
         speed = 2;
+        currentWorld = new World("levels/cave_file");
     }
 
     public BufferedImage loadImage(String fileName) {
@@ -31,6 +34,10 @@ public class Monster {
             System.out.println(e);
             return null;
         }
+    }
+
+    public BufferedImage getImage() {
+        return image;
     }
 
     public int getX() {
@@ -53,10 +60,15 @@ public class Monster {
         return speed;
     }
 
-    // if the monster collides with the player, the game is lost
-    public void getCollision() {
-        if (monsterRect.intersects(p.getPlayerRect())) {
-            currentWorld.setLost(true);
-        }
+    public void updateWorld(World newWorld) {
+        currentWorld = newWorld;
+    }
+
+    public Rectangle getMonsterRect() {
+        return monsterRect;
+    }
+
+    public void updateRectPos(int newX, int newY) {
+        monsterRect.setLocation(newX, newY);
     }
 }

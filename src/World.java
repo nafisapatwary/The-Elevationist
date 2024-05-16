@@ -4,6 +4,7 @@ import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 
+
 public class World {
     private Tile [][] level;
     private String worldName;
@@ -12,13 +13,11 @@ public class World {
     private boolean lost;
     private int count = 0;
 
-
     public World(String fileName) {
         generateWorld(fileName);
         worldName = fileName;
         generateTreasure();
     }
-
 
     // reads the file
     private String[][] getWorld(String fileName) {
@@ -31,16 +30,12 @@ public class World {
             System.out.println("File not found.");
             System.exit(1);
         }
-
         ArrayList<String> fileData = new ArrayList<String>();
         while (s.hasNextLine())
             fileData.add(s.nextLine());
-
         int rows = fileData.size();
         int cols = fileData.get(0).length();
-
         String[][] worldData = new String[rows][cols];
-
         for (int i = 0; i < fileData.size(); i++) {
             String d = fileData.get(i);
             for (int j = 0; j < d.length(); j++) {
@@ -49,7 +44,7 @@ public class World {
         }
         return worldData;
     }
-    
+
     // generates each level
     private void generateWorld(String filename) {
         String[][] mazeData = getWorld(filename);
@@ -89,16 +84,16 @@ public class World {
         return won;
     }
 
-    public void setWon(boolean won) {
-        this.won = won;
+    public void setWon(boolean newVal) {
+        this.won = newVal;
     }
 
     public boolean isLost() {
         return lost;
     }
 
-    public void setLost(boolean lost) {
-        this.lost = lost;
+    public void setLost(boolean newVal) {
+        this.lost = newVal;
     }
 
     public int getCount() {
