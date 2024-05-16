@@ -15,7 +15,7 @@ import javax.swing.*;
 
 
 
-public class WorldPanel extends JPanel implements MouseListener, KeyListener {
+public class WorldPanel extends JPanel implements MouseListener, KeyListener{
     private Rectangle button;
     private Player p;
     private World currentWorld;
@@ -28,6 +28,7 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
     Scanner s = new Scanner(System.in);
     private boolean canMove;
     private boolean collided;
+    private boolean transition;
 
 
     // for text box
@@ -35,6 +36,7 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
     private final int box_y = 50;
     private final int box_height = 100;
     private final int box_width = 200;
+    private long currTime;
 
 
     private String generatedCombo;
@@ -48,6 +50,7 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
         this.setFocusable(true);
         this.addMouseListener(this);
         this.addKeyListener(this);
+
         //change later
         generateWorldList();
         currentWorld = levels.get(count);
@@ -55,6 +58,7 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
         p = new Player();
         canMove = true;
         collided = false;
+        transition = false;
 
 
         combinationField = new JTextField();
@@ -66,10 +70,19 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        drawTiles(g);
-        drawPlayer(g);
-        drawTreasures(g);
-        drawCBox(g);
+        if (transition){
+            drawTransition(g);
+        }
+        else{
+            drawTiles(g);
+            drawPlayer(g);
+            drawTreasures(g);
+            drawCBox(g);
+        }
+        if (System.currentTimeMillis() - 3000 > currTime){
+            transition = false;
+        }
+
     }
 
 
@@ -92,8 +105,6 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
             g.fillRect(box_x, box_y, box_width, box_height);
             g.setColor(Color.BLACK);
             g.drawRect(box_x, box_y, box_width, box_height);
-
-
             g.setFont(new Font("Arial", Font.PLAIN, 16));
             g.drawString(generatedCombo, box_x + 10, box_y + 30);
             g.drawString("Enter combination: ", box_x + 10, box_y + 60);
@@ -115,6 +126,7 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
             x = 0;
             y = y + 47;
         }
+
     }
 
 
@@ -154,8 +166,10 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
     }
 
     public void drawTransition(Graphics g) {
-        setBackground(Color.BLACK);
-//        g.drawImage("");
+        setBackground(Color.pink);
+        g.setFont(new Font("Impress", Font.PLAIN, 75));
+        g.drawString("~~NEXT LEVEL~~", 200, 500);
+        g.drawRect(150,380,715,200);
         //implement some sort of decoration behind
     }
 
@@ -191,6 +205,8 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
         if (currentWorld.getTreasures().isEmpty()) {
             System.out.println("You won!");
             count++;
+            transition = true;
+            currTime = System.currentTimeMillis();
             currentWorld = levels.get(count);
             setPlayerSpeed(count);
             System.out.println(collided);
