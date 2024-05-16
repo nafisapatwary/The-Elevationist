@@ -26,7 +26,6 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
     private ArrayList<World> levels = new ArrayList<>();
     private int count;
     Scanner s = new Scanner(System.in);
-    private boolean newLevel;
     private boolean canMove;
     private boolean collided;
 
@@ -54,7 +53,6 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
         currentWorld = levels.get(count);
         count = currentWorld.getCount();
         p = new Player();
-        newLevel = false;
         canMove = true;
         collided = false;
 
@@ -122,10 +120,6 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
 
     // display player
     private void drawPlayer(Graphics g) {
-        if (newLevel) {
-            p.setX(450);
-            p.setY(700);
-        }
         checkBorders();
         if (moveUp) {
             p.setY(p.getY() - p.getSpeed());
@@ -149,11 +143,6 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
         if (p.getY() == 0) moveUp = false;
         if (p.getX() == 0) moveLeft = false;
         if (p.getX() == 975) moveRight = false;
-        if (count == 2) {
-            if (p.getY() < 513) moveUp = false;
-        }
-
-
     }
 
 
@@ -190,7 +179,6 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
     }
 
     public void removeTreasures() {
-
         Rectangle pRect = p.getPlayerRect();
         ArrayList<Treasure> treasuresToRemove = new ArrayList<>();
         for (int i = 0; i < currentWorld.getTreasures().size(); i++) {
@@ -203,13 +191,10 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
         if (currentWorld.getTreasures().isEmpty()) {
             System.out.println("You won!");
             count++;
-            newLevel = true;
             currentWorld = levels.get(count);
             setPlayerSpeed(count);
             System.out.println(collided);
             System.out.println(canMove);
-        } else {
-            newLevel = false;
         }
     }
 
@@ -281,6 +266,7 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener {
 
     public void keyTyped(KeyEvent e) {
         char key = e.getKeyChar();
+        canMove = true;
         if (displayCombination) {
             if (key == 8) {
                 userInput = userInput.substring(0, userInput.length() - 1);
