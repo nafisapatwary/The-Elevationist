@@ -15,7 +15,7 @@ import javax.swing.*;
 
 
 
-public class WorldPanel extends JPanel implements MouseListener, KeyListener{
+public class WorldPanel extends JPanel implements KeyListener{
     private Rectangle button;
     private Player p;
     private Monster m;
@@ -50,7 +50,6 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener{
     public WorldPanel() {
         button = new Rectangle(75, 200, 160, 26);
         this.setFocusable(true);
-        this.addMouseListener(this);
         this.addKeyListener(this);
 
         //change later
@@ -90,7 +89,6 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener{
         if (System.currentTimeMillis() - 3000 > currTime){
             transition = false;
         }
-
     }
 
 
@@ -258,25 +256,6 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener{
     }
 
     // MOUSE AND KEY INTERACTIONS
-    public void mousePressed(MouseEvent e) {
-        Point clicked = e.getPoint();
-        System.out.println("Mouse Clicked");
-    }
-
-
-    public void mouseReleased(MouseEvent e) {
-    }
-
-    public void mouseEntered(MouseEvent e) {
-    }
-
-    public void mouseExited(MouseEvent e) {
-    }
-
-    public void mouseClicked(MouseEvent e) {
-    }
-
-
     public void keyPressed(KeyEvent e) {
         if (canMove) {
             if (e.getKeyCode() == KeyEvent.VK_W) {
