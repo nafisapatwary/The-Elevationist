@@ -38,6 +38,7 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener{
     private final int box_height = 100;
     private final int box_width = 200;
     private long currTime;
+    private boolean won;
 
 
     private String generatedCombo;
@@ -62,6 +63,7 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener{
         canMove = true;
         collided = false;
         transition = false;
+        won = false;
 
         combinationField = new JTextField();
         combinationField.setBounds(box_x + 50, box_y + 30, 50, 30);
@@ -75,7 +77,10 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener{
         if (transition){
             drawTransition(g);
         }
-        else{
+        if (won){
+            drawWinningScreen(g);
+        }
+        else if (!won && !transition){
             drawTiles(g);
             drawPlayer(g);
             drawMonsters(g);
@@ -181,6 +186,13 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener{
         //implement some sort of decoration behind
     }
 
+    public void drawWinningScreen(Graphics g) {
+        setBackground(Color.pink);
+        g.setFont(new Font("Impress", Font.PLAIN, 75));
+        g.drawString("~YAY YOU WON~", 200, 500);
+        g.drawRect(150,380,715,200);
+    }
+
 
     // collisions
     private void checkTreasureCollisions() {
@@ -216,7 +228,11 @@ public class WorldPanel extends JPanel implements MouseListener, KeyListener{
             }
         }
         currentWorld.getTreasures().removeAll(treasuresToRemove);
-        if (currentWorld.getTreasures().isEmpty()) {
+        if (currentWorld.getTreasures().isEmpty() && count == 4){
+            won = true;
+        }
+        else if (currentWorld.getTreasures().isEmpty() && !won) {
+            System.out.println(count);
             System.out.println("You won!");
             count++;
             transition = true;
