@@ -9,6 +9,7 @@ public class World {
     private Tile [][] level;
     private String worldName;
     private ArrayList<Treasure> treasures = new ArrayList<Treasure>();
+    private ArrayList<Point> treasurePoints = new ArrayList<Point>();
     private boolean won;
     private boolean lost;
     private int count = 0;
@@ -64,8 +65,35 @@ public class World {
             int randY = (int)(Math.random() * 850 + 50);
             treasures.add(new Treasure(randX, randY));
             treasures.get(i).updatePositions(randX, randY);
+            treasurePoints.add(new Point(randX, randY));
+            if (treasurePoints.size() > 1){
+                boolean farApart = checkOtherTreasureLocations(treasurePoints, treasurePoints.get(i));
+                //will continue to generate new points until they are at least 100 units apart
+                while (!farApart) {
+                    int newRandX = (int) (Math.random() * 850 + 50);
+                    int newRandY = (int) (Math.random() * 850 + 50);
+                    treasures.get(i).setX(newRandX);
+                    treasures.get(i).setY(newRandY);
+                    treasurePoints.get(i).setX(newRandX);
+                    treasurePoints.get(i).setY(newRandY);
+                    treasures.get(i).updatePositions(newRandX, newRandY);
+                    farApart = checkOtherTreasureLocations(treasurePoints, treasurePoints.get(i));
+                }
+            }
         }
+    }
 
+
+    private boolean checkOtherTreasureLocations(ArrayList<Point> points, Point curr){
+        for (int i = 0; i < points.size(); i++){
+            if (!curr.equals(points.get(i))){
+                Point compare = points.get(i);
+                if (Math.abs(compare.getX() - curr.getX()) <= 100 || Math.abs(compare.getY() - curr.getY()) <= 100){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public ArrayList<Treasure> getTreasures() {
