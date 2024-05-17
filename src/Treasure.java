@@ -8,6 +8,7 @@ import java.lang.Object;
 public class Treasure {
     private BufferedImage image;
     private String image_file;
+    private Point point;
     private int x;
     private int y;
     private Rectangle treasureRect = new Rectangle(x, y, 50, 47);
@@ -17,6 +18,7 @@ public class Treasure {
         image = loadImage("sprites/closedChest.png");
         this.x = x;
         this.y = y;
+        point = new Point(x, y);
     }
 
     public BufferedImage loadImage(String fileName) {
