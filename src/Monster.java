@@ -5,11 +5,14 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.Buffer;
 import java.lang.Object;
+import java.util.ArrayList;
+import java.util.Random;
 
 
 public class Monster {
     private BufferedImage image;
-    private String imageFile = "sprites/monster_file.PNG";
+    private String imageFile = "sprites/monster_file1.PNG";
+    private ArrayList<String> monsters = new ArrayList<>();
     private int x = 750; // where the monsters spawn in
     private int y = 750;
     private Rectangle monsterRect = new Rectangle(x, y, 60, 60);
@@ -34,6 +37,13 @@ public class Monster {
             System.out.println(e);
             return null;
         }
+    }
+
+    public void generateMonsterImage() {
+        monsters.add("sprites/monster_file1.PNG");
+        monsters.add("sprites/monster_file2.PNG");
+        monsters.add("sprites/monster_file3.PNG");
+        monsters.add("sprites/monster_file4.PNG");
     }
 
     public BufferedImage getImage() {

@@ -14,13 +14,13 @@ public class World {
     private boolean won;
     private boolean lost;
     private int count = 0;
-    private Player p;
-    private Monster m;
+//    private Player p;
+//    private Monster m;
 
     public World(String fileName) {
         generateWorld(fileName);
-        p = new Player();
-        m = new Monster();
+//        p = new Player();
+//        m = new Monster();
         worldName = fileName;
         generateTreasure();
     }
@@ -74,8 +74,7 @@ public class World {
             if (treasurePoints.size() > 1){
                 boolean farApart = checkOtherTreasureLocations(treasurePoints, treasurePoints.get(i));
                 //will continue to generate new points until they are at least 100 units apart
-                boolean playerOrMonsterCol = checkPMPosition(treasurePoints, treasurePoints.get(i));
-                while (!farApart && !playerOrMonsterCol) {
+                while (!farApart) {
                     int newRandX = (int) (Math.random() * 850 + 50);
                     int newRandY = (int) (Math.random() * 850 + 50);
                     treasures.get(i).setX(newRandX);
@@ -84,7 +83,7 @@ public class World {
                     treasurePoints.get(i).setY(newRandY);
                     treasures.get(i).updatePositions(newRandX, newRandY);
                     farApart = checkOtherTreasureLocations(treasurePoints, treasurePoints.get(i));
-                    playerOrMonsterCol = checkPMPosition(treasurePoints, treasurePoints.get(i));
+//                    playerOrMonsterCol = checkPMPosition(treasurePoints, treasurePoints.get(i));
                 }
             }
         }
@@ -103,16 +102,16 @@ public class World {
         return true;
     }
 
-    private boolean checkPMPosition(ArrayList<Point> points, Point curr) {
-        Rectangle playerRect = new Rectangle(p.getX(), p.getY(), 60, 60);
-        Rectangle monsterRect = new Rectangle(m.getX(), m.getY(), 60, 60);
-        for (Point currentPt : points) {
-            if (playerRect.contains(currentPt.getX(), currentPt.getY()) || monsterRect.contains(currentPt.getX(), currentPt.getY())) {
-                return false;
-            }
-        }
-        return true;
-    }
+//    private boolean checkPMPosition(ArrayList<Point> points) {
+//        Rectangle playerRect = new Rectangle(p.getX(), p.getY(), 60, 60);
+//        Rectangle monsterRect = new Rectangle(m.getX(), m.getY(), 60, 60);
+//        for (Point currentPt : points) {
+//            if (playerRect.contains(currentPt.getX(), currentPt.getY()) || monsterRect.contains(currentPt.getX(), currentPt.getY())) {
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
 
 
 

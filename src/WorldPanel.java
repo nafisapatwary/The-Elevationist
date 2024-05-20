@@ -30,6 +30,7 @@ public class WorldPanel extends JPanel implements KeyListener{
     private boolean canMove;
     private boolean collided;
     private boolean transition;
+    private boolean debug; // for debugging purposes
 
 
     // for text box
@@ -63,6 +64,7 @@ public class WorldPanel extends JPanel implements KeyListener{
         collided = false;
         transition = false;
         won = false;
+        debug = true;
 
         combinationField = new JTextField();
         combinationField.setBounds(box_x + 50, box_y + 30, 50, 30);
@@ -98,9 +100,6 @@ public class WorldPanel extends JPanel implements KeyListener{
         levels.add(new World("levels/ground_file"));
         levels.add(new World("levels/sky_file"));
         levels.add(new World("levels/space_file"));
-        for (World l : levels) {
-            System.out.println(l.getWorldName());
-        }
     }
 
 
@@ -206,6 +205,11 @@ public class WorldPanel extends JPanel implements KeyListener{
                 }
                 collided = true;
                 combinationField.requestFocus();
+                if (debug) {
+                    System.out.println(collided);
+                    System.out.println(canMove);
+                    System.out.println(displayCombination);
+                }
             }
         }
     }
@@ -230,8 +234,10 @@ public class WorldPanel extends JPanel implements KeyListener{
             won = true;
         }
         else if (currentWorld.getTreasures().isEmpty() && !won) {
-            System.out.println(count);
-            System.out.println("You won!");
+            if (debug) {
+                System.out.println(count);
+                System.out.println("You won!");
+            }
             count++;
             transition = true;
             currTime = System.currentTimeMillis();
@@ -240,7 +246,6 @@ public class WorldPanel extends JPanel implements KeyListener{
             m.updateWorld(currentWorld);
         }
     }
-
 
     public void setPlayerSpeed(int count) {
         if (count == 1) p.setSpeed(3);
@@ -315,7 +320,9 @@ public class WorldPanel extends JPanel implements KeyListener{
                 }
                 repaint();
             }
-            System.out.println(userInput);
+            if (debug) {
+                System.out.println(userInput);
+            }
         }
     }
 }
