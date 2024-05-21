@@ -94,7 +94,7 @@ public class WorldPanel extends JPanel implements KeyListener{
     }
 
 
-    public void generateWorldList() {
+    private void generateWorldList() {
         levels.add(new World("levels/cave_file"));
         levels.add(new World("levels/ocean_file"));
         levels.add(new World("levels/ground_file"));
@@ -175,7 +175,7 @@ public class WorldPanel extends JPanel implements KeyListener{
         }
     }
 
-    public void drawTransition(Graphics g) {
+    private void drawTransition(Graphics g) {
         setBackground(Color.pink);
         g.setFont(new Font("Impress", Font.PLAIN, 75));
         g.drawString("~~NEXT LEVEL~~", 200, 500);
@@ -183,7 +183,7 @@ public class WorldPanel extends JPanel implements KeyListener{
         //implement some sort of decoration behind
     }
 
-    public void drawWinningScreen(Graphics g) {
+    private void drawWinningScreen(Graphics g) {
         setBackground(Color.pink);
         g.setFont(new Font("Impress", Font.PLAIN, 75));
         g.drawString("~YAY YOU WON~", 200, 500);

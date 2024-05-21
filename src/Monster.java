@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class Monster {
     private BufferedImage image;
-    private String imageFile = "sprites/monster_file1.PNG";
+    private String imageFile;
     private ArrayList<String> monsters = new ArrayList<>();
     private int x = 750; // where the monsters spawn in
     private int y = 750;
@@ -22,6 +22,7 @@ public class Monster {
 
     public Monster() {
         p = new Player();
+        imageFile = generateMonsterImage();
         image = loadImage(imageFile);
         speed = 2;
         currentWorld = new World("levels/cave_file");
@@ -39,11 +40,13 @@ public class Monster {
         }
     }
 
-    public void generateMonsterImage() {
+    public String generateMonsterImage() {
         monsters.add("sprites/monster_file1.PNG");
         monsters.add("sprites/monster_file2.PNG");
         monsters.add("sprites/monster_file3.PNG");
         monsters.add("sprites/monster_file4.PNG");
+        String chosen = monsters.get((int) (Math.random() * monsters.size()));
+        return chosen;
     }
 
     public BufferedImage getImage() {
@@ -80,5 +83,21 @@ public class Monster {
 
     public void updateRectPos(int newX, int newY) {
         monsterRect.setLocation(newX, newY);
+    }
+
+    // for the monster to follow the player
+    public void follows(int targetX, int targetY) {
+        if (x > targetX) {
+            x -= speed;
+        }
+        if (x < targetX) {
+            x += speed;
+        }
+        if (y > targetY) {
+            y -= speed;
+        }
+        if (y < targetY) {
+            y += speed;
+        }
     }
 }
