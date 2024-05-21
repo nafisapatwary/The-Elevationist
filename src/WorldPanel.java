@@ -1,22 +1,13 @@
 import java.awt.*;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseListener;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
-import java.awt.image.BufferedImage;
-import java.lang.reflect.Array;
-import java.security.Key;
 import java.util.ArrayList;
 import java.awt.event.KeyEvent;
 import java.util.Scanner;
 import javax.swing.*;
 
-
-
-
 public class WorldPanel extends JPanel implements KeyListener{
-    private Rectangle button;
+    private static int TRIAL_NUMBER = 0;
     private Player p;
     private Monster m;
     private World currentWorld;
@@ -38,18 +29,20 @@ public class WorldPanel extends JPanel implements KeyListener{
     private final int box_y = 50;
     private final int box_height = 100;
     private final int box_width = 200;
-    private long currTime;
+    private long transitionTime;
+    private long startingTime;
     private boolean won;
 
 
     private String generatedCombo;
     private String userInput = "";
-    private boolean displayCombination;
+    private boolean displayCBox;
+    private boolean displayCombo;
     private JTextField combinationField;
+    private long numberComboTime;
 
 
     public WorldPanel() {
-        button = new Rectangle(75, 200, 160, 26);
         this.setFocusable(true);
         this.addKeyListener(this);
 
@@ -64,7 +57,10 @@ public class WorldPanel extends JPanel implements KeyListener{
         collided = false;
         transition = false;
         won = false;
-        debug = true;
+        debug = false;
+        startingTime = System.currentTimeMillis();
+        TRIAL_NUMBER++;
+        FileManager.createFile();
 
         combinationField = new JTextField();
         combinationField.setBounds(box_x + 50, box_y + 30, 50, 30);
@@ -86,10 +82,15 @@ public class WorldPanel extends JPanel implements KeyListener{
             drawPlayer(g);
             drawMonsters(g);
             drawTreasures(g);
-            drawCBox(g);
+            if (displayCBox){
+                drawCBox(g);
+            }
         }
-        if (System.currentTimeMillis() - 3000 > currTime){
+        if (System.currentTimeMillis() - 3000 > transitionTime){
             transition = false;
+        }
+        if (System.currentTimeMillis() - 3000 > numberComboTime){
+            displayCombo = false;
         }
     }
 
@@ -105,15 +106,19 @@ public class WorldPanel extends JPanel implements KeyListener{
 
     // display combination box
     private void drawCBox(Graphics g) {
-        if (displayCombination) {
+        if (displayCBox) {
             g.setColor(Color.WHITE);
             g.fillRect(box_x, box_y, box_width, box_height);
             g.setColor(Color.BLACK);
             g.drawRect(box_x, box_y, box_width, box_height);
             g.setFont(new Font("Arial", Font.PLAIN, 16));
-            g.drawString(generatedCombo, box_x + 10, box_y + 30);
-            g.drawString("Enter combination: ", box_x + 10, box_y + 60);
-            g.drawString(userInput, box_x + 10, box_y + 90);
+            if (displayCombo){
+                g.drawString(generatedCombo, box_x + 10, box_y + 30);
+            }
+            else{
+                g.drawString("Enter combination: ", box_x + 10, box_y + 60);
+                g.drawString(userInput, box_x + 10, box_y + 90);
+            }
         }
     }
 
@@ -197,18 +202,21 @@ public class WorldPanel extends JPanel implements KeyListener{
         for (Treasure t : currentWorld.getTreasures()) {
             Rectangle tRect = t.getTreasureRect();
             if (pRect.intersects(tRect)) {
-                displayCombination = true;
+                displayCBox = true;
+                numberComboTime = System.currentTimeMillis();
                 canMove = false;
                 if (!collided) {
                     generatedCombo = Combination.chooseCombination(count, count + 3);
+//                    generatedCombo = "111";
                     combinationField.setText(generatedCombo);
+                    displayCombo = true;
                 }
                 collided = true;
                 combinationField.requestFocus();
                 if (debug) {
                     System.out.println(collided);
                     System.out.println(canMove);
-                    System.out.println(displayCombination);
+                    System.out.println(displayCBox);
                 }
             }
         }
@@ -232,6 +240,7 @@ public class WorldPanel extends JPanel implements KeyListener{
         currentWorld.getTreasures().removeAll(treasuresToRemove);
         if (currentWorld.getTreasures().isEmpty() && count == 4){
             won = true;
+            FileManager.writeToFile(TRIAL_NUMBER, System.currentTimeMillis() - startingTime);
         }
         else if (currentWorld.getTreasures().isEmpty() && !won) {
             if (debug) {
@@ -240,7 +249,7 @@ public class WorldPanel extends JPanel implements KeyListener{
             }
             count++;
             transition = true;
-            currTime = System.currentTimeMillis();
+            transitionTime = System.currentTimeMillis();
             currentWorld = levels.get(count);
             setPlayerSpeed(count);
             m.updateWorld(currentWorld);
@@ -306,15 +315,15 @@ public class WorldPanel extends JPanel implements KeyListener{
     public void keyTyped(KeyEvent e) {
         char key = e.getKeyChar();
         canMove = true;
-        if (displayCombination) {
+        if (displayCBox) {
             if (key == 8) {
                 userInput = userInput.substring(0, userInput.length() - 1);
             } else {
                 userInput += key;
-                if (userInput.equals(generatedCombo)) {
+                if (userInput.equals(generatedCombo + " ")) {
                     removeTreasures();
                     userInput = "";
-                    displayCombination = false;
+                    displayCBox = false;
                     canMove = true;
                     collided = false;
                 }
