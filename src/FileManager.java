@@ -1,15 +1,16 @@
-import java.io.File;
+import java.io.*;
 import java.io.IOException;
-import java.io.FileWriter;   // Import the FileWriter class
-import java.io.IOException;  // Import the IOException class to handle errors
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class FileManager {
+    private static File bestTimes = new File("bestTimes.txt");
+    public static ArrayList<Trial> TRIAL_LIST = new ArrayList<Trial>();
 
     public static void createFile() {
         try {
-            File myObj = new File("bestTimes.txt");
-            if (myObj.createNewFile()) {
-                System.out.println("File created: " + myObj.getName());
+            if (bestTimes.createNewFile()) {
+                System.out.println("File created: " + bestTimes.getName());
             } else {
                 System.out.println("File already exists.");
             }
@@ -21,7 +22,9 @@ public class FileManager {
     public static void writeToFile(int trial, long time) {
         try {
             FileWriter myWriter = new FileWriter("bestTimes.txt");
+            //read from arraylist instead
             myWriter.write("Trial #" + trial + ": " + (double) time / 1000 + " seconds");
+            myWriter.write("AAAAAAA TEST TEST test");
             myWriter.close();
             System.out.println("Successfully wrote to the file.");
         } catch (IOException e) {
@@ -30,4 +33,37 @@ public class FileManager {
         }
     }
 
+    public static String readFile(){
+        try {
+            Scanner myReader = new Scanner(bestTimes);
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                return data;
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String readLastTrialNumber(){
+        try {
+            Scanner myReader = new Scanner(bestTimes);
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine() + "\n";
+                System.out.println(data);
+                return data;
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public static void createTrialList(long time){
+        //check the last/most recent trial number
+    }
 }

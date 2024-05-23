@@ -7,7 +7,6 @@ import java.util.Scanner;
 import javax.swing.*;
 
 public class WorldPanel extends JPanel implements KeyListener{
-    private static int TRIAL_NUMBER = 0;
     private Player p;
     private Monster m;
     private World currentWorld;
@@ -59,7 +58,6 @@ public class WorldPanel extends JPanel implements KeyListener{
         won = false;
         debug = false;
         startingTime = System.currentTimeMillis();
-        TRIAL_NUMBER++;
         FileManager.createFile();
 
         combinationField = new JTextField();
@@ -222,6 +220,7 @@ public class WorldPanel extends JPanel implements KeyListener{
         }
     }
 
+
     public void checkMonsterCollisions() {
         if (m.getMonsterRect().intersects(p.getPlayerRect())) {
             currentWorld.setLost(true);
@@ -238,9 +237,10 @@ public class WorldPanel extends JPanel implements KeyListener{
             }
         }
         currentWorld.getTreasures().removeAll(treasuresToRemove);
-        if (currentWorld.getTreasures().isEmpty() && count == 4){
+        if (currentWorld.getTreasures().isEmpty() && count == 0){
             won = true;
-            FileManager.writeToFile(TRIAL_NUMBER, System.currentTimeMillis() - startingTime);
+            FileManager.writeToFile(1, System.currentTimeMillis() - startingTime);
+            FileManager.readLastTrialNumber();
         }
         else if (currentWorld.getTreasures().isEmpty() && !won) {
             if (debug) {
