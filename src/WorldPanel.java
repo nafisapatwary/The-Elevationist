@@ -237,7 +237,7 @@ public class WorldPanel extends JPanel implements KeyListener{
             }
         }
         currentWorld.getTreasures().removeAll(treasuresToRemove);
-        if (currentWorld.getTreasures().isEmpty() && count == 0){
+        if (currentWorld.getTreasures().isEmpty() && count == 4){
             won = true;
             FileManager.writeToFile(1, System.currentTimeMillis() - startingTime);
             FileManager.readLastTrialNumber();
@@ -273,19 +273,15 @@ public class WorldPanel extends JPanel implements KeyListener{
     public void keyPressed(KeyEvent e) {
         if (canMove) {
             if (e.getKeyCode() == KeyEvent.VK_W) {
-//                p.move("w");
                 moveUp = true;
             }
             if (e.getKeyCode() == KeyEvent.VK_A) {
-//                p.move("a");
                 moveLeft = true;
             }
             if (e.getKeyCode() == KeyEvent.VK_D) {
-//                p.move("d");
                 moveRight = true;
             }
             if (e.getKeyCode() == KeyEvent.VK_S) {
-//                p.move("s");
                 moveDown = true;
             }
         }
