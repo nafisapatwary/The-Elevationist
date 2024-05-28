@@ -140,14 +140,19 @@ public class WorldPanel extends JPanel implements KeyListener{
     // display player
     private void drawPlayer(Graphics g) {
         checkBorders();
+        double currTime = (double)System.currentTimeMillis() - (double)startingTime;
+        currTime /= 10;
+        currTime = Math.round(currTime);
         if (moveUp) {
             p.setY(p.getY() - p.getSpeed());
         }
         if (moveLeft) {
             p.setX(p.getX() - p.getSpeed());
+            p.setAnimationImage(currTime, "left", true);
         }
         if (moveRight) {
             p.setX(p.getX() + p.getSpeed());
+            p.setAnimationImage(currTime, "right", true);
         }
         if (moveDown) {
             p.setY(p.getY() + p.getSpeed());
