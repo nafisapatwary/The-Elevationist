@@ -19,7 +19,7 @@ public class WorldPanel extends JPanel implements KeyListener{
     private boolean canMove;
     private boolean collided;
     private boolean transition;
-    private boolean debug; // for debugging purposes
+    private boolean debug;
 
 
     // for text box
