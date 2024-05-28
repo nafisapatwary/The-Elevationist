@@ -58,7 +58,6 @@ public class WorldPanel extends JPanel implements KeyListener{
         won = false;
         debug = false;
         startingTime = System.currentTimeMillis();
-        FileManager.createFile();
 
         combinationField = new JTextField();
         combinationField.setBounds(box_x + 50, box_y + 30, 50, 30);
@@ -239,8 +238,6 @@ public class WorldPanel extends JPanel implements KeyListener{
         currentWorld.getTreasures().removeAll(treasuresToRemove);
         if (currentWorld.getTreasures().isEmpty() && count == 4){
             won = true;
-            FileManager.writeToFile(1, System.currentTimeMillis() - startingTime);
-            FileManager.readLastTrialNumber();
         }
         else if (currentWorld.getTreasures().isEmpty() && !won) {
             if (debug) {
