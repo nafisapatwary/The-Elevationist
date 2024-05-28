@@ -11,8 +11,8 @@ public class Player {
     private BufferedImage image;
 
     private final String image_file = "sprites/player_file_cat.png";
-    private int x = 450;
-    private int y = 700;
+    private int x = 200;
+    private int y = 200;
     private Rectangle playerRect = new Rectangle(x, y, 60, 60);
     private int speed;
 

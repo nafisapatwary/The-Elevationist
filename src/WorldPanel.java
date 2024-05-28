@@ -8,14 +8,13 @@ import javax.swing.*;
 
 public class WorldPanel extends JPanel implements KeyListener{
     private Player p;
-    private Monster m;
     private World currentWorld;
     private boolean moveUp = false;
     private boolean moveLeft = false;
     private boolean moveRight = false;
     private boolean moveDown = false;
-    private ArrayList<World> levels = new ArrayList<>();
-    private int count;
+    public static ArrayList<World> levels = new ArrayList<>();
+    public static int count;
     Scanner s = new Scanner(System.in);
     private boolean canMove;
     private boolean collided;
@@ -48,10 +47,8 @@ public class WorldPanel extends JPanel implements KeyListener{
         //change later
         generateWorldList();
         currentWorld = levels.get(count);
-        count = currentWorld.getCount();
+        count = 0;
         p = new Player();
-        m = new Monster();
-        m.updateWorld(currentWorld);
         canMove = true;
         collided = false;
         transition = false;
@@ -158,8 +155,10 @@ public class WorldPanel extends JPanel implements KeyListener{
 
     // displays the monsters
     private void drawMonsters(Graphics g) {
-        m.updateRectPos(m.getX(), m.getY());
-        g.drawImage(m.getImage(), m.getX(), m.getY(), null);
+        for (Monster m : currentWorld.getMonsters()) {
+            m.updateRectPos(m.getX(), m.getY());
+            g.drawImage(m.getImage(), m.getX(), m.getY(), null);
+        }
     }
 
     private void checkBorders() {
@@ -204,7 +203,6 @@ public class WorldPanel extends JPanel implements KeyListener{
                 canMove = false;
                 if (!collided) {
                     generatedCombo = Combination.chooseCombination(count, count + 3);
-//                    generatedCombo = "111";
                     combinationField.setText(generatedCombo);
                     displayCombo = true;
                 }
@@ -221,8 +219,10 @@ public class WorldPanel extends JPanel implements KeyListener{
 
 
     public void checkMonsterCollisions() {
-        if (m.getMonsterRect().intersects(p.getPlayerRect())) {
-            currentWorld.setLost(true);
+        for (Monster m : currentWorld.getMonsters()) {
+            if (m.getMonsterRect().intersects(p.getPlayerRect())) {
+                currentWorld.setLost(true);
+            }
         }
     }
 
@@ -249,7 +249,8 @@ public class WorldPanel extends JPanel implements KeyListener{
             transitionTime = System.currentTimeMillis();
             currentWorld = levels.get(count);
             setPlayerSpeed(count);
-            m.updateWorld(currentWorld);
+            p.setX(200);
+            p.setY(200);
         }
     }
 

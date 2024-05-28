@@ -13,19 +13,17 @@ public class Monster {
     private BufferedImage image;
     private String imageFile;
     private ArrayList<String> monsters = new ArrayList<>();
-    private int x = 750; // where the monsters spawn in
-    private int y = 750;
+    private int x;
+    private int y;
     private Rectangle monsterRect = new Rectangle(x, y, 60, 60);
     private int speed;
     private Player p;
-    private World currentWorld;
 
     public Monster() {
         p = new Player();
         imageFile = generateMonsterImage();
         image = loadImage(imageFile);
         speed = 2;
-        currentWorld = new World("levels/cave_file");
     }
 
     public BufferedImage loadImage(String fileName) {
@@ -71,10 +69,6 @@ public class Monster {
 
     public int getSpeed() {
         return speed;
-    }
-
-    public void updateWorld(World newWorld) {
-        currentWorld = newWorld;
     }
 
     public Rectangle getMonsterRect() {
