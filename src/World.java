@@ -13,16 +13,14 @@ public class World {
     private ArrayList<Point> treasurePoints = new ArrayList<Point>();
     private boolean won;
     private boolean lost;
-    private int count = 0;
-//    private Player p;
-//    private Monster m;
+    private ArrayList<Monster> monsters = new ArrayList<>();
+    public ArrayList<World> worlds = WorldPanel.levels;
 
     public World(String fileName) {
         generateWorld(fileName);
-//        p = new Player();
-//        m = new Monster();
         worldName = fileName;
         generateTreasure();
+        generateMonsters();
     }
 
     // reads the file
@@ -83,7 +81,6 @@ public class World {
                     treasurePoints.get(i).setY(newRandY);
                     treasures.get(i).updatePositions(newRandX, newRandY);
                     farApart = checkOtherTreasureLocations(treasurePoints, treasurePoints.get(i));
-//                    playerOrMonsterCol = checkPMPosition(treasurePoints, treasurePoints.get(i));
                 }
             }
         }
@@ -102,21 +99,21 @@ public class World {
         return true;
     }
 
-//    private boolean checkPMPosition(ArrayList<Point> points) {
-//        Rectangle playerRect = new Rectangle(p.getX(), p.getY(), 60, 60);
-//        Rectangle monsterRect = new Rectangle(m.getX(), m.getY(), 60, 60);
-//        for (Point currentPt : points) {
-//            if (playerRect.contains(currentPt.getX(), currentPt.getY()) || monsterRect.contains(currentPt.getX(), currentPt.getY())) {
-//                return false;
-//            }
-//        }
-//        return true;
-//    }
-
-
+    public void generateMonsters() {
+        for (int i = 0; i < worlds.size() + 1; i++) {
+            Monster m = new Monster();
+            m.setX((int) (Math.random() * 850 + 50));
+            m.setY((int) (Math.random() * 850 + 50));
+            monsters.add(m);
+        }
+    }
 
     public ArrayList<Treasure> getTreasures() {
         return treasures;
+    }
+
+    public ArrayList<Monster> getMonsters() {
+        return monsters;
     }
 
     public Tile[][] getLevel() {
@@ -141,13 +138,5 @@ public class World {
 
     public void setLost(boolean newVal) {
         this.lost = newVal;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
     }
 }
