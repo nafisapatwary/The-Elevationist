@@ -14,13 +14,14 @@ public class World {
     private boolean won;
     private boolean lost;
     private ArrayList<Monster> monsters = new ArrayList<>();
+    private ArrayList<Point> monsterPoints = new ArrayList<>();
     private ArrayList<World> worlds = WorldPanel.levels;
 
     public World(String fileName) {
         generateWorld(fileName);
         worldName = fileName;
         generateTreasure();
-        generateMonsters();
+        spawnMonsters();
     }
 
     // reads the file
@@ -99,7 +100,33 @@ public class World {
         return true;
     }
 
-    public void generateMonsters() {
+    private boolean checkMonsterLocations(ArrayList<Point> monsterPoints, Point curr) {
+        for (int i = 0; i < monsterPoints.size(); i++) {
+            Point pointCompared = monsterPoints.get(i);
+            if (!curr.equals(pointCompared)) {
+                if (Math.abs(pointCompared.getX() - curr.getX()) <= 150 || Math.abs(pointCompared.getY() - curr.getY()) <= 150) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private void generateMonsterLocations(int mx, int my) {
+        monsterPoints.add(new Point(mx, my));
+        if (monsterPoints.size() > 1) {
+            for (int i = 0; i < monsterPoints.size(); i++) {
+                Point currentPoint = monsterPoints.get(i);
+                boolean farApart = checkMonsterLocations(monsterPoints, currentPoint);
+                while (!farApart) {
+                    int newMx = (int) (Math.random() * 850 + 50);
+                    int newMy = (int) (Math.random() * 850 + 50);
+                }
+            }
+        }
+    }
+
+    public void spawnMonsters() {
         for (int i = 0; i < worlds.size() + 1; i++) {
             if (i == 0) {
                 Monster m1 = new Monster();
