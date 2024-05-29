@@ -11,7 +11,7 @@ public class Player {
     private BufferedImage image;
 
 
-    private String image_file = "sprites/player_file_cat.png";
+    private String image_file = "sprites/cat_idle.png";
     private int x = 200;
     private int y = 200;
     private Rectangle playerRect = new Rectangle(x, y, 55, 55);
@@ -49,7 +49,7 @@ public class Player {
     public void setAnimationImage(double seconds, String direction, boolean walking){
         if (direction.equals("right")){
             System.out.println(seconds);
-            image = loadImage("sprites/cat_right_idle.png");
+            image = loadImage("sprites/cat_idle.png");
             if (walking){
                 if ((int)seconds % 2 == 0){
                     image = loadImage("sprites/cat_right_step_forward.png");
@@ -61,7 +61,7 @@ public class Player {
             }
         }
         if (direction.equals("left")){
-            image = loadImage("sprites/cat_left_idle.png");
+            image = loadImage("sprites/cat_idle.png");
             if (walking){
                 if ((int)seconds % 2 == 0){
                     image = loadImage("sprites/cat_left_step_forward.png");
