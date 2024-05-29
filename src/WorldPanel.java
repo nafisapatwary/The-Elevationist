@@ -8,6 +8,7 @@ import javax.swing.*;
 
 public class WorldPanel extends JPanel implements KeyListener{
     private Player p;
+    private Crown c;
     private World currentWorld;
     private boolean moveUp = false;
     private boolean moveLeft = false;
@@ -30,6 +31,7 @@ public class WorldPanel extends JPanel implements KeyListener{
     private long transitionTime;
     private long startingTime;
     private boolean won;
+    private boolean lost;
 
 
     private String generatedCombo;
@@ -49,10 +51,12 @@ public class WorldPanel extends JPanel implements KeyListener{
         currentWorld = levels.get(count);
         count = 0;
         p = new Player();
+        c = new Crown();
         canMove = true;
         collided = false;
         transition = false;
         won = false;
+        lost = false;
         debug = false;
         startingTime = System.currentTimeMillis();
 
@@ -71,7 +75,10 @@ public class WorldPanel extends JPanel implements KeyListener{
         if (won){
             drawWinningScreen(g);
         }
-        else if (!won && !transition){
+        if (lost){
+            drawLosingScreen(g);
+        }
+        else if (!won && !transition && !lost){
             drawTiles(g);
             drawPlayer(g);
             drawMonsters(g);
@@ -183,7 +190,7 @@ public class WorldPanel extends JPanel implements KeyListener{
 
     private void drawTransition(Graphics g) {
         setBackground(Color.pink);
-        g.setFont(new Font("Impress", Font.PLAIN, 75));
+        g.setFont(new Font("Monospaced", Font.BOLD, 75));
         g.drawString("~~NEXT LEVEL~~", 200, 500);
         g.drawRect(150,380,715,200);
         //implement some sort of decoration behind
@@ -191,8 +198,16 @@ public class WorldPanel extends JPanel implements KeyListener{
 
     private void drawWinningScreen(Graphics g) {
         setBackground(Color.pink);
-        g.setFont(new Font("Impress", Font.PLAIN, 75));
-        g.drawString("~YAY YOU WON~", 200, 500);
+        g.setFont(new Font("Monospaced", Font.BOLD, 75));
+        g.drawString("~YAY YOU WON~", 220, 500);
+        g.drawRect(150,380,715,200);
+        g.drawImage(c.getImage(), 337, 100, null);
+    }
+
+    private void drawLosingScreen(Graphics g) {
+        setBackground(Color.pink);
+        g.setFont(new Font("Monospaced", Font.BOLD, 75));
+        g.drawString("womp womp", 310, 500);
         g.drawRect(150,380,715,200);
     }
 
@@ -226,7 +241,7 @@ public class WorldPanel extends JPanel implements KeyListener{
     public void checkMonsterCollisions() {
         for (Monster m : currentWorld.getMonsters()) {
             if (m.getMonsterRect().intersects(p.getPlayerRect())) {
-                currentWorld.setLost(true);
+                lost = true;
             }
         }
     }
