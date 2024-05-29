@@ -101,10 +101,30 @@ public class World {
 
     public void generateMonsters() {
         for (int i = 0; i < worlds.size() + 1; i++) {
-            Monster m = new Monster();
-            m.setX((int) (Math.random() * 850 + 50));
-            m.setY((int) (Math.random() * 850 + 50));
-            monsters.add(m);
+            if (i == 0) {
+                Monster m1 = new Monster();
+                m1.setX((int) (Math.random() * 850 + 50));
+                m1.setY((int) (Math.random() * 850 + 50));
+                monsters.add(m1);
+            }
+            if (i == 1 || i == 2) {
+                Monster m2 = new Monster();
+                m2.setX((int) (Math.random() * 850 + 50));
+                m2.setY((int) (Math.random() * 850 + 50));
+                monsters.add(m2);
+            }
+            if (i == 3) {
+                Monster m3 = new Monster();
+                m3.setX((int) (Math.random() * 850 + 50));
+                m3.setY((int) (Math.random() * 850 + 50));
+                monsters.add(m3);
+            }
+            if (i == 4 || i == 5) {
+                Monster m4 = new Monster();
+                m4.setX((int) (Math.random() * 850 + 50));
+                m4.setY((int) (Math.random() * 850 + 50));
+                monsters.add(m4);
+            }
         }
     }
 
