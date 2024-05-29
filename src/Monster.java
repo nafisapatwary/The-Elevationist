@@ -23,7 +23,7 @@ public class Monster {
         p = new Player();
         imageFile = generateMonsterImage();
         image = loadImage(imageFile);
-        speed = 2;
+        speed = 3;
     }
 
     public BufferedImage loadImage(String fileName) {
@@ -77,21 +77,5 @@ public class Monster {
 
     public void updateRectPos(int newX, int newY) {
         monsterRect.setLocation(newX, newY);
-    }
-
-    // for the monster to follow the player
-    public void follows(int targetX, int targetY) {
-        if (x > targetX) {
-            x -= speed;
-        }
-        if (x < targetX) {
-            x += speed;
-        }
-        if (y > targetY) {
-            y -= speed;
-        }
-        if (y < targetY) {
-            y += speed;
-        }
     }
 }

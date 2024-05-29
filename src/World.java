@@ -14,7 +14,7 @@ public class World {
     private boolean won;
     private boolean lost;
     private ArrayList<Monster> monsters = new ArrayList<>();
-    public ArrayList<World> worlds = WorldPanel.levels;
+    private ArrayList<World> worlds = WorldPanel.levels;
 
     public World(String fileName) {
         generateWorld(fileName);

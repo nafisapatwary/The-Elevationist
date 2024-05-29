@@ -288,6 +288,21 @@ public class WorldPanel extends JPanel implements KeyListener{
                 moveDown = true;
             }
         }
+
+        for (Monster m : currentWorld.getMonsters()) {
+            if (p.getX() > m.getX()) {
+                m.setX(m.getX() + m.getSpeed());
+            }
+            if (p.getX() < m.getX()) {
+                m.setX(m.getX() - m.getSpeed());
+            }
+            if (p.getY() > m.getY()) {
+                m.setY(m.getY() + m.getSpeed());
+            }
+            if (p.getY() < m.getY()) {
+                m.setY(m.getY() - m.getSpeed());
+            }
+        }
     }
 
 
