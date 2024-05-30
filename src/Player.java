@@ -10,7 +10,6 @@ import java.lang.Object;
 public class Player {
     private BufferedImage image;
 
-
     private String image_file = "sprites/cat_idle.png";
     private int x = 200;
     private int y = 200;
@@ -48,12 +47,10 @@ public class Player {
 
     public void setAnimationImage(double seconds, String direction, boolean walking){
         if (direction.equals("right")){
-            System.out.println(seconds);
             image = loadImage("sprites/cat_idle.png");
             if (walking){
                 if ((int)seconds % 2 == 0){
                     image = loadImage("sprites/cat_right_step_forward.png");
-                    System.out.println("hi");
                 }
                 else{
                     image = loadImage("sprites/cat_right_step_backward.png");

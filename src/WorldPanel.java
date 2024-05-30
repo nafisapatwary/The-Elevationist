@@ -7,33 +7,36 @@ import java.util.Scanner;
 import javax.swing.*;
 
 public class WorldPanel extends JPanel implements KeyListener{
-    private Player p;
-    private Crown c;
+    //world building--------------------------------------------------------------
     private World currentWorld;
+    public static ArrayList<World> levels = new ArrayList<>();
+    private Crown c;
+
+    //player----------------------------------------------------------------------
+    private Player p;
     private boolean moveUp = false;
     private boolean moveLeft = false;
     private boolean moveRight = false;
     private boolean moveDown = false;
-    public static ArrayList<World> levels = new ArrayList<>();
-    public static int count;
-    Scanner s = new Scanner(System.in);
     private boolean canMove;
     private boolean collided;
-    private boolean transition;
-    private boolean debug;
 
-
-    // for text box
+    //combination box-----------------------------------------------------------
     private final int box_x = 50;
     private final int box_y = 50;
     private final int box_height = 100;
     private final int box_width = 200;
+
+    //game status---------------------------------------------------------------
     private long transitionTime;
     private long startingTime;
     private boolean won;
     private boolean lost;
+    private boolean transition;
+    public static int count;
+    private boolean debug;
 
-
+    //number combination-----------------------------------------------------------
     private String generatedCombo;
     private String userInput = "";
     private boolean displayCBox;
@@ -45,11 +48,9 @@ public class WorldPanel extends JPanel implements KeyListener{
     public WorldPanel() {
         this.setFocusable(true);
         this.addKeyListener(this);
-
-        //change later
         generateWorldList();
-        currentWorld = levels.get(count);
         count = 0;
+        currentWorld = levels.get(count);
         p = new Player();
         c = new Crown();
         canMove = true;
@@ -59,7 +60,7 @@ public class WorldPanel extends JPanel implements KeyListener{
         lost = false;
         debug = false;
         startingTime = System.currentTimeMillis();
-
+        //number combo
         combinationField = new JTextField();
         combinationField.setBounds(box_x + 50, box_y + 30, 50, 30);
         combinationField.addKeyListener(this);
@@ -140,7 +141,6 @@ public class WorldPanel extends JPanel implements KeyListener{
 
     }
 
-
     // display player
     private void drawPlayer(Graphics g) {
         checkBorders();
@@ -173,21 +173,14 @@ public class WorldPanel extends JPanel implements KeyListener{
         }
     }
 
-    private void checkBorders() {
-        if (p.getY() == 924) moveDown = false;
-        if (p.getY() == 0) moveUp = false;
-        if (p.getX() == 0) moveLeft = false;
-        if (p.getX() == 975) moveRight = false;
-    }
-
-
-    // display treasures
+    //display treasures
     private void drawTreasures(Graphics g) {
         for (Treasure treasure : currentWorld.getTreasures()) {
             g.drawImage(treasure.getImage(), treasure.getX(), treasure.getY(), null);
         }
     }
 
+    //transition scene
     private void drawTransition(Graphics g) {
         setBackground(Color.pink);
         g.setFont(new Font("Monospaced", Font.BOLD, 75));
@@ -196,6 +189,7 @@ public class WorldPanel extends JPanel implements KeyListener{
         //implement some sort of decoration behind
     }
 
+    //winning screen
     private void drawWinningScreen(Graphics g) {
         setBackground(Color.pink);
         g.setFont(new Font("Monospaced", Font.BOLD, 75));
@@ -204,6 +198,7 @@ public class WorldPanel extends JPanel implements KeyListener{
         g.drawImage(c.getImage(), 337, 100, null);
     }
 
+    //losing screen
     private void drawLosingScreen(Graphics g) {
         setBackground(Color.pink);
         g.setFont(new Font("Monospaced", Font.BOLD, 75));
@@ -211,8 +206,15 @@ public class WorldPanel extends JPanel implements KeyListener{
         g.drawRect(150,380,715,200);
     }
 
+    //checking collisions
+    private void checkBorders() {
+        if (p.getY() >= 924) moveDown = false;
+        if (p.getY() <= 0) moveUp = false;
+        if (p.getX() <= 0) moveLeft = false;
+        if (p.getX() >= 975) moveRight = false;
+        System.out.println(p.getX());
+    }
 
-    // collisions
     private void checkTreasureCollisions() {
         Rectangle pRect = p.getPlayerRect();
         for (Treasure t : currentWorld.getTreasures()) {
@@ -237,7 +239,6 @@ public class WorldPanel extends JPanel implements KeyListener{
         }
     }
 
-
     public void checkMonsterCollisions() {
         for (Monster m : currentWorld.getMonsters()) {
             if (m.getMonsterRect().intersects(p.getPlayerRect())) {
@@ -256,9 +257,8 @@ public class WorldPanel extends JPanel implements KeyListener{
             }
         }
         currentWorld.getTreasures().removeAll(treasuresToRemove);
-        if (currentWorld.getTreasures().isEmpty() && count == 4){
-            won = true;
-        }
+        //last level, completed all treasures
+        if (currentWorld.getTreasures().isEmpty() && count == 4) won = true;
         else if (currentWorld.getTreasures().isEmpty() && !won) {
             if (debug) {
                 System.out.println(count);
@@ -274,6 +274,7 @@ public class WorldPanel extends JPanel implements KeyListener{
         }
     }
 
+    //random method to alter speed if needed
     public void setPlayerSpeed(int count) {
         if (count == 1) p.setSpeed(3);
     }
