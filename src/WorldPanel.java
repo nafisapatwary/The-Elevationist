@@ -10,7 +10,7 @@ public class WorldPanel extends JPanel implements KeyListener{
     //world building--------------------------------------------------------------
     private World currentWorld;
     public static ArrayList<World> levels = new ArrayList<>();
-    private Crown c;
+    private Decoration crown;
 
     //player----------------------------------------------------------------------
     private Player p;
@@ -48,18 +48,23 @@ public class WorldPanel extends JPanel implements KeyListener{
     public WorldPanel() {
         this.setFocusable(true);
         this.addKeyListener(this);
+        //levels/worlds
         generateWorldList();
         count = 0;
         currentWorld = levels.get(count);
+
+        //player
         p = new Player();
-        c = new Crown();
         canMove = true;
         collided = false;
+
+        //game status
         transition = false;
         won = false;
         lost = false;
         debug = false;
         startingTime = System.currentTimeMillis();
+
         //number combo
         combinationField = new JTextField();
         combinationField.setBounds(box_x + 50, box_y + 30, 50, 30);
@@ -139,6 +144,17 @@ public class WorldPanel extends JPanel implements KeyListener{
             y = y + 47;
         }
 
+        if (count == 1){
+            //CHANGE SIZE OF SHARK
+            Decoration shark = new Decoration("shark", 600, 500, 80, 55);
+            g.drawImage(shark.getImage(), 600, 500, null);
+        }
+
+        if (count == 2){
+            Decoration duck = new Decoration("duck", 55, 55, 80, 55);
+            g.drawImage(duck.getImage(), 55, 55, null);
+        }
+
     }
 
     // display player
@@ -191,11 +207,12 @@ public class WorldPanel extends JPanel implements KeyListener{
 
     //winning screen
     private void drawWinningScreen(Graphics g) {
+        crown = new Decoration("crown", 100, 300, 300, 300);
         setBackground(Color.pink);
         g.setFont(new Font("Monospaced", Font.BOLD, 75));
         g.drawString("~YAY YOU WON~", 220, 500);
         g.drawRect(150,380,715,200);
-        g.drawImage(c.getImage(), 337, 100, null);
+        g.drawImage(crown.getImage(), 337, 100, null);
     }
 
     //losing screen
