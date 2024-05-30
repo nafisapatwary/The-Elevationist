@@ -91,7 +91,7 @@ public class WorldPanel extends JPanel implements KeyListener{
         if (System.currentTimeMillis() - 3000 > transitionTime){
             transition = false;
         }
-        if (System.currentTimeMillis() - 3000 > numberComboTime){
+        if (System.currentTimeMillis() - 2500 > numberComboTime){
             displayCombo = false;
         }
     }

@@ -20,7 +20,7 @@ public class World {
     public World(String fileName) {
         generateWorld(fileName);
         worldName = fileName;
-        generateTreasure();
+        spawnTreasures();
         spawnMonsters();
     }
 
@@ -63,7 +63,7 @@ public class World {
     }
 
     // generates the treasure for each level
-    private void generateTreasure(){
+    private void spawnTreasures(){
         for (int i = 0; i < 4; i++){
             int randX = (int)(Math.random() * 850 + 50);
             int randY = (int)(Math.random() * 850 + 50);
@@ -112,7 +112,7 @@ public class World {
         return true;
     }
 
-    private void generateMonsterLocations(int mx, int my) {
+    public void generateMonsterLocations(int mx, int my) {
         monsterPoints.add(new Point(mx, my));
         if (monsterPoints.size() > 1) {
             for (int i = 0; i < monsterPoints.size(); i++) {
@@ -121,10 +121,19 @@ public class World {
                 while (!farApart) {
                     int newMx = (int) (Math.random() * 850 + 50);
                     int newMy = (int) (Math.random() * 850 + 50);
+                    Monster currentMonster = monsters.get(i);
+                    currentMonster.setX(newMx);
+                    currentMonster.setY(newMy);
+                    currentPoint.setX(newMx);
+                    currentPoint.setY(newMy);
+                    currentMonster.updateRectPos(newMx, newMy);
+                    farApart = checkMonsterLocations(monsterPoints, currentPoint);
+
                 }
             }
         }
     }
+
 
     public void spawnMonsters() {
         for (int i = 0; i < worlds.size() + 1; i++) {
@@ -139,21 +148,27 @@ public class World {
                 m2.setX((int) (Math.random() * 850 + 50));
                 m2.setY((int) (Math.random() * 850 + 50));
                 monsters.add(m2);
+                generateMonsterLocations(m2.getX(), m2.getY());
             }
             if (i == 3) {
                 Monster m3 = new Monster();
                 m3.setX((int) (Math.random() * 850 + 50));
                 m3.setY((int) (Math.random() * 850 + 50));
                 monsters.add(m3);
+                generateMonsterLocations(m3.getX(), m3.getY());
             }
             if (i == 4 || i == 5) {
                 Monster m4 = new Monster();
                 m4.setX((int) (Math.random() * 850 + 50));
                 m4.setY((int) (Math.random() * 850 + 50));
                 monsters.add(m4);
+                generateMonsterLocations(m4.getX(), m4.getY());
+
             }
         }
     }
+
+
 
     public ArrayList<Treasure> getTreasures() {
         return treasures;
