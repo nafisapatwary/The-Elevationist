@@ -34,7 +34,7 @@ public class Tile {
         tileFiles.put("B", "file17.png");
         tileFiles.put("C", "file18.png");
         tileFiles.put("D", "file19.png");
-
+        tileFiles.put("S", "file20.png");
     }
 
     public BufferedImage loadImage(String fileName) {

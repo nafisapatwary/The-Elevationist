@@ -212,7 +212,6 @@ public class WorldPanel extends JPanel implements KeyListener{
         if (p.getY() <= 0) moveUp = false;
         if (p.getX() <= 0) moveLeft = false;
         if (p.getX() >= 975) moveRight = false;
-        System.out.println(p.getX());
     }
 
     private void checkTreasureCollisions() {

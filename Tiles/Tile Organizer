@@ -18,12 +18,13 @@ file9 - sky
 
 
 //SKY LEVEL
-file17 (B) - bird
+file17 (B) - blue bird
 file9 - sky
 file10 (#) - darker sky
 file11 (@) - cloud
-file18 (C) - right side gradient
-file19 (D) - left side gradient
+file18 (C) - pink bird
+file19 (D) - wind
+file20 (S) - sun
 
 //SPACE LEVEL
 file12 ($) - space/sky (black + stars)
