@@ -99,6 +99,23 @@ public class WorldPanel extends JPanel implements KeyListener{
         if (System.currentTimeMillis() - 2500 > numberComboTime){
             displayCombo = false;
         }
+        if (canMove) {
+            for (Monster m : currentWorld.getMonsters()) {
+                System.out.println(m.getX() + "," + m.getY());
+                if (p.getX() > m.getX()) {
+                    m.setX(m.getX() + m.getSpeed());
+                }
+                if (p.getX() < m.getX()) {
+                    m.setX(m.getX() - m.getSpeed());
+                }
+                if (p.getY() > m.getY()) {
+                    m.setY(m.getY() + m.getSpeed());
+                }
+                if (p.getY() < m.getY()) {
+                    m.setY(m.getY() - m.getSpeed());
+                }
+            }
+        }
     }
 
 
@@ -320,22 +337,25 @@ public class WorldPanel extends JPanel implements KeyListener{
                 moveDown = true;
             }
         }
+//        if (canMove) {
+//            for (Monster m : currentWorld.getMonsters()) {
+//                if (p.getX() > m.getX()) {
+//                    m.setX(m.getX() + m.getSpeed());
+//                }
+//                if (p.getX() < m.getX()) {
+//                    m.setX(m.getX() - m.getSpeed());
+//                }
+//                if (p.getY() > m.getY()) {
+//                    m.setY(m.getY() + m.getSpeed());
+//                }
+//                if (p.getY() < m.getY()) {
+//                    m.setY(m.getY() - m.getSpeed());
+//                }
+//            }
+//        }
 
-        for (Monster m : currentWorld.getMonsters()) {
-            if (p.getX() > m.getX()) {
-                m.setX(m.getX() + m.getSpeed());
-            }
-            if (p.getX() < m.getX()) {
-                m.setX(m.getX() - m.getSpeed());
-            }
-            if (p.getY() > m.getY()) {
-                m.setY(m.getY() + m.getSpeed());
-            }
-            if (p.getY() < m.getY()) {
-                m.setY(m.getY() - m.getSpeed());
-            }
-        }
     }
+
 
 
     public void keyReleased(KeyEvent e) {
@@ -360,7 +380,6 @@ public class WorldPanel extends JPanel implements KeyListener{
 
     public void keyTyped(KeyEvent e) {
         char key = e.getKeyChar();
-        canMove = true;
         if (displayCBox) {
             if (key == 8) {
                 userInput = userInput.substring(0, userInput.length() - 1);
@@ -378,6 +397,9 @@ public class WorldPanel extends JPanel implements KeyListener{
             if (debug) {
                 System.out.println(userInput);
             }
+        }
+        else{
+            canMove = true;
         }
     }
 }

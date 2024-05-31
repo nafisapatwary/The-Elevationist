@@ -139,28 +139,28 @@ public class World {
         for (int i = 0; i < worlds.size() + 1; i++) {
             if (i == 0) {
                 Monster m1 = new Monster();
-                m1.setX((int) (Math.random() * 850 + 50));
-                m1.setY((int) (Math.random() * 850 + 50));
+                m1.setX(350);
+                m1.setY(100);
                 monsters.add(m1);
             }
             if (i == 1 || i == 2) {
                 Monster m2 = new Monster();
-                m2.setX((int) (Math.random() * 850 + 50));
-                m2.setY((int) (Math.random() * 850 + 50));
+                m2.setX(167);
+                m2.setY(800);
                 monsters.add(m2);
                 generateMonsterLocations(m2.getX(), m2.getY());
             }
             if (i == 3) {
                 Monster m3 = new Monster();
-                m3.setX((int) (Math.random() * 850 + 50));
-                m3.setY((int) (Math.random() * 850 + 50));
+                m3.setX(550);
+                m3.setY(500);
                 monsters.add(m3);
                 generateMonsterLocations(m3.getX(), m3.getY());
             }
             if (i == 4 || i == 5) {
                 Monster m4 = new Monster();
-                m4.setX((int) (Math.random() * 850 + 50));
-                m4.setY((int) (Math.random() * 850 + 50));
+                m4.setX(420);
+                m4.setY(400);
                 monsters.add(m4);
                 generateMonsterLocations(m4.getX(), m4.getY());
 

@@ -23,7 +23,7 @@ public class Monster {
         p = new Player();
         imageFile = generateMonsterImage();
         image = loadImage(imageFile);
-        speed = 3;
+        speed = 1;
     }
 
     public BufferedImage loadImage(String fileName) {
