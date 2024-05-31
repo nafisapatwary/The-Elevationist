@@ -99,9 +99,10 @@ public class WorldPanel extends JPanel implements KeyListener{
         if (System.currentTimeMillis() - 2500 > numberComboTime){
             displayCombo = false;
         }
-        if (canMove) {
+        if (!displayCBox) {
+//            System.out.println(currentWorld.getMonsters());
             for (Monster m : currentWorld.getMonsters()) {
-                System.out.println(m.getX() + "," + m.getY());
+//                System.out.println(m.getXs() + "," + m.getY());
                 if (p.getX() > m.getX()) {
                     m.setX(m.getX() + m.getSpeed());
                 }
@@ -161,15 +162,29 @@ public class WorldPanel extends JPanel implements KeyListener{
             y = y + 47;
         }
 
+        if (count == 0){
+            Decoration spider = new Decoration("spider", 100, 200, 100, 70);
+            Decoration spider2 = new Decoration("spider", 400, 500, 100, 70);
+            g.drawImage(spider.getImage(), 100, 200,null);
+            g.drawImage(spider2.getImage(), 800, 800,null);
+        }
         if (count == 1){
-            //CHANGE SIZE OF SHARK
             Decoration shark = new Decoration("shark", 600, 500, 80, 55);
             g.drawImage(shark.getImage(), 600, 500, null);
         }
 
         if (count == 2){
             Decoration duck = new Decoration("duck", 55, 55, 80, 55);
-            g.drawImage(duck.getImage(), 55, 55, null);
+            Decoration barn = new Decoration("barn", 200, 400, 500,500);
+            g.drawImage(duck.getImage(), 700, 520, null);
+            g.drawImage(barn.getImage(), 160, 500, null);
+        }
+
+        if (count == 4){
+            Decoration spaceship = new Decoration("spaceship", 200, 300, 55, 55);
+            Decoration astronaut = new Decoration("astronaut", 100, 400, 200, 200);
+            g.drawImage(spaceship.getImage(), 100, 500, null);
+            g.drawImage(astronaut.getImage(), 800, 600, null);
         }
 
     }
@@ -353,7 +368,6 @@ public class WorldPanel extends JPanel implements KeyListener{
 //                }
 //            }
 //        }
-
     }
 
 
