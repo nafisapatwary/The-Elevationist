@@ -1,6 +1,9 @@
 import java.awt.*;
 import java.awt.event.KeyListener;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JPanel;
+import java.io.File;
 import java.util.ArrayList;
 import java.awt.event.KeyEvent;
 import java.util.Scanner;
@@ -77,6 +80,7 @@ public class WorldPanel extends JPanel implements KeyListener{
         super.paintComponent(g);
         if (transition){
             drawTransition(g);
+            makeSound("audioFiles/sadTrombone.wav");
         }
         if (won){
             drawWinningScreen(g);
@@ -333,6 +337,17 @@ public class WorldPanel extends JPanel implements KeyListener{
         }
         else if (currentWorld.isLost()) {
             System.out.println("you lost the game!");
+        }
+    }
+
+    public void makeSound(String pathname){
+        File sound = new File(pathname);
+        try{
+            Clip clip = AudioSystem.getClip();
+            clip.open(AudioSystem.getAudioInputStream(sound));
+            clip.start();
+        } catch (Exception e){
+            e.printStackTrace();
         }
     }
 
