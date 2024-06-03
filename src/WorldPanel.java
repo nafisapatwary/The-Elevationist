@@ -80,7 +80,7 @@ public class WorldPanel extends JPanel implements KeyListener{
         super.paintComponent(g);
         if (transition){
             drawTransition(g);
-            makeSound("audioFiles/sadTrombone.wav");
+//            makeSound("audioFiles/sadTrombone.wav");
         }
         if (won){
             drawWinningScreen(g);
@@ -103,10 +103,8 @@ public class WorldPanel extends JPanel implements KeyListener{
         if (System.currentTimeMillis() - 2500 > numberComboTime){
             displayCombo = false;
         }
-        if (!displayCBox) {
-//            System.out.println(currentWorld.getMonsters());
+        if (!displayCBox && !transition) {
             for (Monster m : currentWorld.getMonsters()) {
-//                System.out.println(m.getXs() + "," + m.getY());
                 if (p.getX() > m.getX()) {
                     m.setX(m.getX() + m.getSpeed());
                 }
@@ -367,22 +365,6 @@ public class WorldPanel extends JPanel implements KeyListener{
                 moveDown = true;
             }
         }
-//        if (canMove) {
-//            for (Monster m : currentWorld.getMonsters()) {
-//                if (p.getX() > m.getX()) {
-//                    m.setX(m.getX() + m.getSpeed());
-//                }
-//                if (p.getX() < m.getX()) {
-//                    m.setX(m.getX() - m.getSpeed());
-//                }
-//                if (p.getY() > m.getY()) {
-//                    m.setY(m.getY() + m.getSpeed());
-//                }
-//                if (p.getY() < m.getY()) {
-//                    m.setY(m.getY() - m.getSpeed());
-//                }
-//            }
-//        }
     }
 
 

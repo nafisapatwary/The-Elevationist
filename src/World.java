@@ -100,41 +100,6 @@ public class World {
         return true;
     }
 
-    private boolean checkMonsterLocations(ArrayList<Point> monsterPoints, Point curr) {
-        for (int i = 0; i < monsterPoints.size(); i++) {
-            Point pointCompared = monsterPoints.get(i);
-            if (!curr.equals(pointCompared)) {
-                if (Math.abs(pointCompared.getX() - curr.getX()) <= 150 || Math.abs(pointCompared.getY() - curr.getY()) <= 150) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    public void generateMonsterLocations(int mx, int my) {
-        monsterPoints.add(new Point(mx, my));
-        if (monsterPoints.size() > 1) {
-            for (int i = 0; i < monsterPoints.size(); i++) {
-                Point currentPoint = monsterPoints.get(i);
-                boolean farApart = checkMonsterLocations(monsterPoints, currentPoint);
-                while (!farApart) {
-                    int newMx = (int) (Math.random() * 850 + 50);
-                    int newMy = (int) (Math.random() * 850 + 50);
-                    Monster currentMonster = monsters.get(i);
-                    currentMonster.setX(newMx);
-                    currentMonster.setY(newMy);
-                    currentPoint.setX(newMx);
-                    currentPoint.setY(newMy);
-                    currentMonster.updateRectPos(newMx, newMy);
-                    farApart = checkMonsterLocations(monsterPoints, currentPoint);
-
-                }
-            }
-        }
-    }
-
-
     public void spawnMonsters() {
         for (int i = 0; i < worlds.size() + 1; i++) {
             if (i == 0) {
@@ -145,24 +110,21 @@ public class World {
             }
             if (i == 1 || i == 2) {
                 Monster m2 = new Monster();
-                m2.setX(167);
-                m2.setY(800);
+                m2.setX(800);
+                m2.setY(650);
                 monsters.add(m2);
-                generateMonsterLocations(m2.getX(), m2.getY());
             }
             if (i == 3) {
                 Monster m3 = new Monster();
-                m3.setX(550);
+                m3.setX(570);
                 m3.setY(500);
                 monsters.add(m3);
-                generateMonsterLocations(m3.getX(), m3.getY());
             }
             if (i == 4 || i == 5) {
                 Monster m4 = new Monster();
-                m4.setX(420);
-                m4.setY(400);
+                m4.setX(620);
+                m4.setY(370);
                 monsters.add(m4);
-                generateMonsterLocations(m4.getX(), m4.getY());
 
             }
         }
