@@ -1,7 +1,5 @@
 import java.awt.*;
 import java.awt.event.KeyListener;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.swing.JPanel;
 import java.io.File;
 import java.util.ArrayList;
@@ -80,7 +78,6 @@ public class WorldPanel extends JPanel implements KeyListener{
         super.paintComponent(g);
         if (transition){
             drawTransition(g);
-//            makeSound("audioFiles/sadTrombone.wav");
         }
         if (won){
             drawWinningScreen(g);
@@ -338,17 +335,6 @@ public class WorldPanel extends JPanel implements KeyListener{
         }
     }
 
-    public void makeSound(String pathname){
-        File sound = new File(pathname);
-        try{
-            Clip clip = AudioSystem.getClip();
-            clip.open(AudioSystem.getAudioInputStream(sound));
-            clip.start();
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
     // MOUSE AND KEY INTERACTIONS
     public void keyPressed(KeyEvent e) {
         if (canMove) {
@@ -392,18 +378,23 @@ public class WorldPanel extends JPanel implements KeyListener{
     public void keyTyped(KeyEvent e) {
         char key = e.getKeyChar();
         if (displayCBox) {
-            if (key == 8) {
+            if (key == 8 && !userInput.isEmpty()) {
                 userInput = userInput.substring(0, userInput.length() - 1);
             } else {
                 userInput += key;
-                if (userInput.equals(generatedCombo + " ")) {
-                    removeTreasures();
-                    userInput = "";
-                    displayCBox = false;
-                    canMove = true;
-                    collided = false;
+                if (key == 32){
+                    if (userInput.equals(generatedCombo + " ")) {
+                        removeTreasures();
+                        userInput = "";
+                        displayCBox = false;
+                        canMove = true;
+                        collided = false;
+                    }
+                    else if (!userInput.equals(generatedCombo + " ")){
+                        lost = true;
+                    }
+                    repaint();
                 }
-                repaint();
             }
             if (debug) {
                 System.out.println(userInput);

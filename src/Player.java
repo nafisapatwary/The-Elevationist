@@ -33,18 +33,6 @@ public class Player {
         }
     }
 
-    public BufferedImage getImage() {
-        return image;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
     public void setAnimationImage(double seconds, String direction, boolean walking){
         if (direction.equals("right")){
             image = loadImage("sprites/cat_idle.png");
@@ -70,6 +58,19 @@ public class Player {
         }
 
     }
+
+    public BufferedImage getImage() {
+        return image;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
 
     public void setX(int x){
         this.x = x;
