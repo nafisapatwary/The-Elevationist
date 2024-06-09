@@ -64,7 +64,7 @@ public class World {
 
     // generates the treasure for each level
     private void spawnTreasures(){
-        for (int i = 0; i < 4; i++){
+        for (int i = 0; i < 2; i++){
             int randX = (int)(Math.random() * 850 + 50);
             int randY = (int)(Math.random() * 850 + 50);
             treasures.add(new Treasure(randX, randY));
@@ -92,7 +92,7 @@ public class World {
         for (int i = 0; i < points.size(); i++){
             if (!curr.equals(points.get(i))){
                 Point compare = points.get(i);
-                if (Math.abs(compare.getX() - curr.getX()) <= 100 || Math.abs(compare.getY() - curr.getY()) <= 100){
+                if (Math.abs(compare.getX() - curr.getX()) <= 100 || Math.abs(compare.getY() - curr.getY()) <= 100 || curr.getX() == 200 && curr.getY() == 200){
                     return false;
                 }
             }
