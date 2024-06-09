@@ -82,7 +82,7 @@ public class Combination {
     // 3 & 4
     public static String genMixedCombination(int length) {
         String combination = "";
-        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         for (int i = 0; i < length; i++) {
             char randomChar = chars.charAt((int) (Math.random() * chars.length()));
             combination += randomChar;

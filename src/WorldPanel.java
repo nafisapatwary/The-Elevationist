@@ -167,6 +167,7 @@ public class WorldPanel extends JPanel implements KeyListener{
             g.drawImage(spider.getImage(), 100, 200,null);
             g.drawImage(spider2.getImage(), 800, 800,null);
         }
+
         if (count == 1){
             Decoration shark = new Decoration("shark", 600, 500, 80, 55);
             g.drawImage(shark.getImage(), 600, 500, null);
@@ -179,11 +180,20 @@ public class WorldPanel extends JPanel implements KeyListener{
             g.drawImage(barn.getImage(), 160, 500, null);
         }
 
+        if (count == 3) {
+            Decoration cloud = new Decoration("cloud", 100, 150, 158, 97);
+            Decoration cloud2 = new Decoration("cloud", 100, 150, 158, 97);
+            g.drawImage(cloud.getImage(), 100, 45, null);
+            g.drawImage(cloud2.getImage(), 570, 180, null);
+        }
+
         if (count == 4){
             Decoration spaceship = new Decoration("spaceship", 200, 300, 55, 55);
             Decoration astronaut = new Decoration("astronaut", 100, 400, 200, 200);
+            Decoration moon = new Decoration("moon", 200, 300, 55, 55);
             g.drawImage(spaceship.getImage(), 100, 500, null);
             g.drawImage(astronaut.getImage(), 800, 600, null);
+            g.drawImage(moon.getImage(), 40, 130, null);
         }
 
     }

@@ -39,10 +39,10 @@ public class Monster {
     }
 
     public String generateMonsterImage() {
-        monsters.add("sprites/monster_file1.PNG");
-        monsters.add("sprites/monster_file2.PNG");
-        monsters.add("sprites/monster_file3.PNG");
-        monsters.add("sprites/monster_file4.PNG");
+        monsters.add("sprites/creature1.png");
+        monsters.add("sprites/creature2.png");
+        monsters.add("sprites/creature3.png");
+        monsters.add("sprites/creature4.png");
         String chosen = monsters.get((int) (Math.random() * monsters.size()));
         return chosen;
     }

@@ -14,7 +14,7 @@ public class Decoration {
     private int y;
     private int width;
     private int height;
-    private Rectangle deecorRect;
+    private Rectangle decorRect;
 
     public Decoration(String file, int x, int y, int w, int h) {
         image_file = "sprites/" + file + ".png";
@@ -58,7 +58,7 @@ public class Decoration {
     }
 
     public Rectangle getPlayerRect() {
-        return deecorRect;
+        return decorRect;
     }
 
 }

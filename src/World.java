@@ -108,7 +108,7 @@ public class World {
                 m1.setY(100);
                 monsters.add(m1);
             }
-            if (i == 1 || i == 2) {
+            if (i == 1) {
                 Monster m2 = new Monster();
                 m2.setX(800);
                 m2.setY(650);
@@ -120,7 +120,7 @@ public class World {
                 m3.setY(500);
                 monsters.add(m3);
             }
-            if (i == 4 || i == 5) {
+            if (i == 4) {
                 Monster m4 = new Monster();
                 m4.setX(620);
                 m4.setY(370);
