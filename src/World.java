@@ -64,7 +64,7 @@ public class World {
 
     // generates the treasure for each level
     private void spawnTreasures(){
-        for (int i = 0; i < 2; i++){
+        for (int i = 0; i < 4; i++){
             int randX = (int)(Math.random() * 850 + 50);
             int randY = (int)(Math.random() * 850 + 50);
             treasures.add(new Treasure(randX, randY));
